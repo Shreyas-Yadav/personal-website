@@ -1813,15 +1813,35 @@
         }
 
         .about-content {
-            max-width: 1000px;
-            text-align: center;
+            max-width: 1400px;
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+
+        /* Profile Image */
+        .profile-image-container {
+            flex: 0 0 30%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .profile-image {
+            width: 100%;
+            max-width: 350px;
+            height: auto;
+            border-radius: 50%;
+            object-fit: cover;
+            aspect-ratio: 1;
         }
 
         .about-text {
+            flex: 1;
             font-size: clamp(28px, 5vw, 56px);
             font-weight: 600;
             letter-spacing: -0.03em;
             line-height: 1.3;
+            text-align: center;
         }
 
         .about-text .word {
@@ -2231,8 +2251,22 @@
                 min-height: auto;
             }
 
+            .about-content {
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            .profile-image-container {
+                flex: 0 0 auto;
+            }
+
+            .profile-image {
+                max-width: 250px;
+            }
+
             .about-text {
-                font-size: clamp(22px, 5vw, 40px);
+                font-size: clamp(20px, 5vw, 32px);
+                text-align: center;
             }
 
             /* Contact section */
@@ -2865,12 +2899,10 @@
     <!-- About -->
     <section class="about-section" id="about">
         <div class="about-content">
-            <p class="about-text" id="about-text">
-                I'm pursuing my Master's in Computer Science at the University of San Francisco, graduating May 2026. I
-                build at the intersection of AI systems and security engineering. From real-time AI commentary that
-                placed at hackathons, to container security tools contributing to Google's open source ecosystem.
-                Currently in San Francisco, focused on production-grade systems that ship.
-            </p>
+            <div class="profile-image-container">
+                <img src="Profile-Pic.png" alt="Shreyas Yadav" class="profile-image">
+            </div>
+            <p class="about-text" id="about-text">I'm pursuing my Master's in Computer Science at the University of San Francisco, graduating May 2026. I build at the intersection of AI systems and security engineering. From real-time AI commentary that placed at hackathons, to container security tools contributing to Google's open source ecosystem. Currently in San Francisco, focused on production-grade systems that ship.</p>
         </div>
     </section>
 
