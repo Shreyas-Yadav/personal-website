@@ -1282,6 +1282,7 @@
                 opacity: 0;
                 transform: translateY(30px) scale(0.95);
             }
+
             100% {
                 opacity: 1;
                 transform: translateY(0) scale(1);
@@ -1803,13 +1804,37 @@
             }
         }
 
-        /* About - Centered Text Reveal */
+        /* About - Sticky Scroll Reveal */
+        .about-scene {
+            min-height: 150vh;
+            position: relative;
+        }
+
+        .about-sticky {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
         .about-section {
-            min-height: 100vh;
+            width: 100%;
+            height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 100px 50px;
+            position: relative;
+            background: url('GoldenGate.jpg') center center / cover no-repeat;
+        }
+
+        .about-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 0;
         }
 
         .about-content {
@@ -1817,22 +1842,8 @@
             display: flex;
             align-items: center;
             gap: 60px;
-        }
-
-        /* Profile Image */
-        .profile-image-container {
-            flex: 0 0 30%;
-            display: flex;
-            justify-content: center;
-        }
-
-        .profile-image {
-            width: 100%;
-            max-width: 350px;
-            height: auto;
-            border-radius: 50%;
-            object-fit: cover;
-            aspect-ratio: 1;
+            position: relative;
+            z-index: 1;
         }
 
         .about-text {
@@ -2246,22 +2257,21 @@
             }
 
             /* About section */
+            .about-scene {
+                min-height: 120vh;
+            }
+
             .about-section {
                 padding: 60px 24px;
-                min-height: auto;
+            }
+
+            .about-section::before {
+                background: rgba(0, 0, 0, 0.65);
             }
 
             .about-content {
                 flex-direction: column;
                 gap: 40px;
-            }
-
-            .profile-image-container {
-                flex: 0 0 auto;
-            }
-
-            .profile-image {
-                max-width: 250px;
             }
 
             .about-text {
@@ -2897,12 +2907,13 @@
     </section>
 
     <!-- About -->
-    <section class="about-section" id="about">
-        <div class="about-content">
-            <div class="profile-image-container">
-                <img src="Profile-Pic.png" alt="Shreyas Yadav" class="profile-image">
+    <section class="about-scene" id="about">
+        <div class="about-sticky">
+            <div class="about-section">
+                <div class="about-content">
+                    <p class="about-text" id="about-text">I'm pursuing my Master's in Computer Science at the University of San Francisco, graduating May 2026. I build at the intersection of AI systems and security engineering. From real-time AI commentary that placed at hackathons, to container security tools contributing to Google's open source ecosystem. Currently in San Francisco, focused on production-grade systems that ship.</p>
+                </div>
             </div>
-            <p class="about-text" id="about-text">I'm pursuing my Master's in Computer Science at the University of San Francisco, graduating May 2026. I build at the intersection of AI systems and security engineering. From real-time AI commentary that placed at hackathons, to container security tools contributing to Google's open source ecosystem. Currently in San Francisco, focused on production-grade systems that ship.</p>
         </div>
     </section>
 
@@ -3128,21 +3139,25 @@
         aboutText.innerHTML = words.map(word => `<span class="word">${word}</span>`).join(' ');
         const wordSpans = aboutText.querySelectorAll('.word');
 
-        const aboutObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const rect = entry.target.getBoundingClientRect();
-                    const scrollProgress = 1 - (rect.top / window.innerHeight);
-                    const wordsToHighlight = Math.floor(scrollProgress * wordSpans.length * 1.5);
+        const highlightWords = () => {
+            const rect = aboutText.getBoundingClientRect();
+            const viewportHeight = window.innerHeight;
 
-                    wordSpans.forEach((word, i) => {
-                        word.classList.toggle('highlight', i < wordsToHighlight);
-                    });
-                }
+            // Start highlighting when top of element is 80% down the viewport
+            // Finish highlighting all words when top of element reaches 30% down the viewport
+            const startPoint = viewportHeight * 0.8;
+            const endPoint = viewportHeight * 0.3;
+
+            const scrollProgress = Math.max(0, Math.min(1, (startPoint - rect.top) / (startPoint - endPoint)));
+            const wordsToHighlight = Math.ceil(scrollProgress * wordSpans.length);
+
+            wordSpans.forEach((word, i) => {
+                word.classList.toggle('highlight', i < wordsToHighlight);
             });
-        }, { threshold: Array.from({ length: 100 }, (_, i) => i / 100) });
+        };
 
-        aboutObserver.observe(aboutText);
+        window.addEventListener('scroll', highlightWords);
+        highlightWords(); // Initial call
 
         // Parallax on visual layers
         document.querySelectorAll('.project-visual').forEach(visual => {
@@ -3374,7 +3389,7 @@
         const allCards = document.querySelectorAll('.magnetic-card');
         let isProjectsExpanded = false;
 
-        projectsToggle.addEventListener('click', function(e) {
+        projectsToggle.addEventListener('click', function (e) {
             // Don't toggle if clicking on category pills
             if (e.target.classList.contains('category-pill')) {
                 return;
@@ -3414,7 +3429,7 @@
         });
 
         // Category filtering
-        categoryPills.addEventListener('click', function(e) {
+        categoryPills.addEventListener('click', function (e) {
             if (!e.target.classList.contains('category-pill')) return;
 
             e.stopPropagation();
