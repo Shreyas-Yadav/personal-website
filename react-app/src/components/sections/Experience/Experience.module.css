@@ -1,0 +1,201 @@
+/* Experience Section */
+.experienceScene {
+    padding: 120px 0;
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.title {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 60px;
+    text-align: center;
+}
+
+.timeline {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    padding: 0 20px;
+}
+
+/* Vertical Line */
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    bottom: 20px;
+    width: 1px;
+    background: linear-gradient(to bottom,
+            transparent,
+            rgba(255, 255, 255, 0.1) 10%,
+            rgba(255, 255, 255, 0.1) 90%,
+            transparent);
+}
+
+.card {
+    position: relative;
+    padding: 30px 40px;
+    margin-left: 40px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.1);
+    transform: translateX(5px);
+}
+
+/* Timeline Dot */
+.card::before {
+    content: '';
+    position: absolute;
+    left: -46.5px;
+    /* Aligns with timeline line */
+    top: 30px;
+    width: 11px;
+    height: 11px;
+    background: var(--bg);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    z-index: 1;
+}
+
+.card:hover::before {
+    border-color: var(--accent);
+    background: var(--accent);
+    box-shadow: 0 0 15px var(--accent);
+}
+
+/* Card Content */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.role {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.01em;
+}
+
+.period {
+    font-size: 14px;
+    color: var(--dim);
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.subheader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    font-size: 14px;
+    color: var(--dim);
+}
+
+.company {
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+}
+
+.location {
+    font-style: italic;
+    opacity: 0.7;
+}
+
+.description {
+    list-style: none;
+    margin: 0 0 24px 0;
+    padding: 0;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.description li {
+    position: relative;
+    padding-left: 16px;
+    margin-bottom: 8px;
+}
+
+.description li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: bold;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tag {
+    font-size: 11px;
+    padding: 4px 12px;
+    border-radius: 100px;
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.6);
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.card:hover .tag {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text);
+}
+
+/* Interactive hover on tags */
+.tag:hover {
+    background: rgba(0, 170, 255, 0.15) !important;
+    color: var(--accent) !important;
+    border-color: rgba(0, 170, 255, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .experienceScene {
+        padding: 80px 20px;
+    }
+
+
+
+    .card {
+        margin-left: 20px;
+        padding: 24px;
+    }
+
+    .card::before {
+        left: -25px;
+    }
+
+    .header {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .subheader {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        margin-bottom: 20px;
+    }
+}

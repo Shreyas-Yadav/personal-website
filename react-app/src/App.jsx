@@ -6,6 +6,7 @@ import { Hero } from './components/sections/Hero';
 import { FeaturedProject } from './components/sections/FeaturedProject';
 import { MagneticGallery } from './components/sections/MagneticGallery';
 import { TechStats } from './components/sections/TechStats';
+import { Experience } from './components/sections/Experience';
 import { About } from './components/sections/About';
 import { Contact } from './components/sections/Contact';
 import { Footer } from './components/layout/Footer';
@@ -23,6 +24,8 @@ function App() {
 
             <Hero />
 
+            <Experience />
+
             {/* Featured Projects */}
             {featuredProjects.map((project, index) => (
                 <FeaturedProject
@@ -34,6 +37,7 @@ function App() {
 
             <MagneticGallery />
             <TechStats />
+
             <About />
             <Contact />
             <Footer />

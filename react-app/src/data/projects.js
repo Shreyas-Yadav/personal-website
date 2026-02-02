@@ -1,23 +1,7 @@
 export const featuredProjects = [
     {
-        id: 'live-caster',
-        number: '01',
-        label: 'Featured Project',
-        title: 'Live-Caster',
-        description: 'Real-time AI commentary system for live events. Gemini 2.5 Flash processes video streams while ElevenLabs delivers natural voice synthesis with sub-second latency.',
-        tech: ['Gemini 2.5 Flash', 'ElevenLabs', 'WebSockets', 'Python'],
-        award: {
-            icon: 'star',
-            text: '3rd Place — Google DeepMind × Cerebral Valley'
-        },
-        visual: {
-            type: 'parallax',
-            icon: '🎙️'
-        }
-    },
-    {
         id: 'threat-radar',
-        number: '02',
+        number: '01',
         label: 'Security Engineering',
         title: 'Threat Radar',
         description: 'CLI container security scanner that analyzes Docker images for vulnerabilities, misconfigurations, and supply chain risks. Contributed 90+ high-severity fixes to Google Open Source.',
@@ -31,6 +15,22 @@ export const featuredProjects = [
                 { text: '⚠ 3 HIGH', delay: 1200, color: 'orange', suffix: { text: ' | 12 MEDIUM | 8 LOW', color: 'dim' } },
                 { text: '✓ Report: ', delay: 1600, prefix: 'green', suffix: { text: './threat-report.json', color: 'blue' } }
             ]
+        }
+    },
+    {
+        id: 'live-caster',
+        number: '02',
+        label: 'Featured Project',
+        title: 'Live-Caster',
+        description: 'Real-time AI commentary system for live events. Gemini 2.5 Flash processes video streams while ElevenLabs delivers natural voice synthesis with sub-second latency.',
+        tech: ['Gemini 2.5 Flash', 'ElevenLabs', 'WebSockets', 'Python'],
+        award: {
+            icon: 'star',
+            text: '3rd Place — Google DeepMind × Cerebral Valley'
+        },
+        visual: {
+            type: 'parallax',
+            icon: '🎙️'
         }
     }
 ];
