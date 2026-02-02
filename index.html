@@ -1005,46 +1005,358 @@
             -webkit-text-stroke: 2px currentColor;
         }
 
+        /* Python - Official blue #3776AB */
         .skill-item:nth-child(1):hover {
-            color: #3776ab;
+            color: #3776AB;
         }
 
-        /* Python blue */
+        /* Java - Official orange #ED8B00 */
         .skill-item:nth-child(2):hover {
-            color: #3178c6;
+            color: #ED8B00;
         }
 
-        /* TypeScript blue */
+        /* Go - Official Gopher Blue #00ADD8 */
         .skill-item:nth-child(3):hover {
-            color: #1c8e4a;
+            color: #00ADD8;
         }
 
-        /* LangChain green */
+        /* C++ - Official blue #044F88 */
         .skill-item:nth-child(4):hover {
-            color: #a855f7;
+            color: #044F88;
         }
 
-        /* LlamaIndex purple */
+        /* Docker - Official Cerulean #0DB7ED */
         .skill-item:nth-child(5):hover {
+            color: #0DB7ED;
+        }
+
+        /* AWS - Official orange #FF9900 */
+        .skill-item:nth-child(6):hover {
+            color: #FF9900;
+        }
+
+        /* FastAPI - Official teal #009688 */
+        .skill-item:nth-child(7):hover {
             color: #009688;
         }
 
-        /* FastAPI teal */
-        .skill-item:nth-child(6):hover {
-            color: #2496ed;
-        }
-
-        /* Docker blue */
-        .skill-item:nth-child(7):hover {
-            color: #ff9900;
-        }
-
-        /* AWS orange */
+        /* Node.js - Official green #3C873A */
         .skill-item:nth-child(8):hover {
-            color: #4285f4;
+            color: #3C873A;
         }
 
-        /* GCP blue */
+        /* MySQL - Official blue #00758F */
+        .skill-item:nth-child(9):hover {
+            color: #00758F;
+        }
+
+        /* LlamaIndex - Purple #A855F7 */
+        .skill-item:nth-child(10):hover {
+            color: #A855F7;
+        }
+
+        /* LangChain - Teal #1C3C3C */
+        .skill-item:nth-child(11):hover {
+            color: #2DD4BF;
+        }
+
+        /* OpenAI - Official green #00A67E */
+        .skill-item:nth-child(12):hover {
+            color: #00A67E;
+        }
+
+        /* ===== Projects Dynamic Island Toggle ===== */
+        .projects-toggle-wrapper {
+            display: flex;
+            justify-content: center;
+            padding: 60px 20px 40px;
+        }
+
+        .projects-toggle {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 32px;
+            background: rgba(25, 25, 25, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow:
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+            overflow: hidden;
+        }
+
+        .projects-toggle::before,
+        .projects-toggle::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 50px;
+            padding: 2px;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        /* Light traveling from left (clockwise) */
+        .projects-toggle::before {
+            background: conic-gradient(from var(--toggle-angle-left, 180deg),
+                    transparent 0%,
+                    transparent 10%,
+                    rgba(0, 170, 255, 0.3) 15%,
+                    rgba(0, 170, 255, 0.8) 20%,
+                    rgba(255, 255, 255, 1) 25%,
+                    rgba(0, 170, 255, 0.8) 30%,
+                    rgba(0, 170, 255, 0.3) 35%,
+                    transparent 40%,
+                    transparent 100%);
+            animation: toggleLightLeft 3s linear infinite;
+        }
+
+        /* Light traveling from right (counter-clockwise) */
+        .projects-toggle::after {
+            background: conic-gradient(from var(--toggle-angle-right, 0deg),
+                    transparent 0%,
+                    transparent 10%,
+                    rgba(180, 68, 255, 0.3) 15%,
+                    rgba(180, 68, 255, 0.8) 20%,
+                    rgba(255, 255, 255, 1) 25%,
+                    rgba(180, 68, 255, 0.8) 30%,
+                    rgba(180, 68, 255, 0.3) 35%,
+                    transparent 40%,
+                    transparent 100%);
+            animation: toggleLightRight 3s linear infinite;
+        }
+
+        @property --toggle-angle-left {
+            syntax: '<angle>';
+            initial-value: 180deg;
+            inherits: false;
+        }
+
+        @property --toggle-angle-right {
+            syntax: '<angle>';
+            initial-value: 0deg;
+            inherits: false;
+        }
+
+        @keyframes toggleLightLeft {
+            to {
+                --toggle-angle-left: 540deg;
+            }
+        }
+
+        @keyframes toggleLightRight {
+            to {
+                --toggle-angle-right: -360deg;
+            }
+        }
+
+        .projects-toggle:hover {
+            transform: scale(1.02);
+            box-shadow:
+                0 12px 40px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+        }
+
+        .toggle-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .toggle-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            color: #fff;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .toggle-arrow svg {
+            width: 16px;
+            height: 16px;
+            stroke: #fff;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        /* Expanded state */
+        .projects-toggle.expanded {
+            padding: 16px 24px;
+            border-radius: 28px;
+        }
+
+        .projects-toggle.expanded .toggle-arrow {
+            transform: rotate(180deg);
+        }
+
+        /* Category pills container */
+        .category-pills {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            max-width: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .projects-toggle.expanded .category-pills {
+            max-width: 800px;
+            opacity: 1;
+            margin-left: 16px;
+            padding-left: 16px;
+            border-left: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .category-pill {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .category-pill:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .category-pill.active {
+            background: rgba(0, 170, 255, 0.2);
+            border-color: rgba(0, 170, 255, 0.5);
+            color: #fff;
+        }
+
+        /* Hide text when expanded, show "Projects" */
+        .projects-toggle.expanded .toggle-text {
+            font-size: 14px;
+        }
+
+        /* Projects section hidden state */
+        .magnetic-gallery.hidden {
+            display: none;
+        }
+
+        /* Simple unfold animation - override scatter */
+        .magnetic-gallery.simple-unfold .magnetic-card {
+            --magnetic-progress: 1 !important;
+            --scatter-x: 0 !important;
+            --scatter-y: 0 !important;
+            --scatter-rotation: 0 !important;
+            --scatter-z: 0 !important;
+            transform: none;
+            opacity: 0;
+            animation: cardUnfold 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: calc(var(--card-index, 0) * 0.06s);
+        }
+
+        @keyframes cardUnfold {
+            0% {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .magnetic-gallery.simple-unfold .magnetic-attractor,
+        .magnetic-gallery.simple-unfold .magnetic-particle {
+            display: none !important;
+        }
+
+        /* Ensure hover works after unfold */
+        .magnetic-gallery.simple-unfold .magnetic-card:hover {
+            transform: translateY(-6px) scale(1.01) !important;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* Mobile responsive for toggle */
+        @media (max-width: 768px) {
+            .projects-toggle-wrapper {
+                padding: 40px 16px 30px;
+            }
+
+            .projects-toggle {
+                flex-direction: column;
+                padding: 14px 24px;
+                max-width: calc(100vw - 32px);
+            }
+
+            .projects-toggle.expanded {
+                padding: 16px 20px;
+                border-radius: 24px;
+            }
+
+            .toggle-content {
+                gap: 10px;
+            }
+
+            .toggle-text {
+                font-size: 14px;
+            }
+
+            .projects-toggle.expanded .category-pills {
+                max-width: none;
+                width: 100%;
+                margin-left: 0;
+                margin-top: 12px;
+                padding-left: 0;
+                padding-top: 12px;
+                border-left: none;
+                border-top: 1px solid rgba(255, 255, 255, 0.15);
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .category-pill {
+                padding: 6px 12px;
+                font-size: 11px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .projects-toggle {
+                padding: 12px 20px;
+            }
+
+            .toggle-text {
+                font-size: 13px;
+            }
+
+            .category-pill {
+                padding: 5px 10px;
+                font-size: 10px;
+            }
+        }
 
         /* ===== Magnetic Scatter Gallery ===== */
         .magnetic-gallery {
@@ -1092,12 +1404,15 @@
         }
 
         @keyframes attractorPulse {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: translate(-50%, -50%) scale(1);
                 box-shadow:
                     0 0 60px rgba(0, 170, 255, 0.3),
                     0 0 120px rgba(0, 170, 255, 0.2);
             }
+
             50% {
                 transform: translate(-50%, -50%) scale(1.15);
                 box-shadow:
@@ -1140,10 +1455,13 @@
         }
 
         @keyframes particleFloat {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: translate(0, 0) scale(1);
                 opacity: 0.6;
             }
+
             50% {
                 transform: translate(var(--particle-drift-x, 20px), var(--particle-drift-y, -30px)) scale(1.5);
                 opacity: 1;
@@ -1171,10 +1489,7 @@
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
             /* Magnetic scatter transforms */
             transform:
-                translateX(calc(var(--scatter-x) * (1 - var(--magnetic-progress))))
-                translateY(calc(var(--scatter-y) * (1 - var(--magnetic-progress))))
-                translateZ(calc(var(--scatter-z) * (1 - var(--magnetic-progress))))
-                rotate(calc(var(--scatter-rotation) * (1 - var(--magnetic-progress))));
+                translateX(calc(var(--scatter-x) * (1 - var(--magnetic-progress)))) translateY(calc(var(--scatter-y) * (1 - var(--magnetic-progress)))) translateZ(calc(var(--scatter-z) * (1 - var(--magnetic-progress)))) rotate(calc(var(--scatter-rotation) * (1 - var(--magnetic-progress))));
             opacity: calc(0.3 + (var(--magnetic-progress) * 0.7));
             transition: box-shadow 0.3s ease, border-color 0.3s ease;
             will-change: transform, opacity;
@@ -1185,12 +1500,10 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(
-                calc(var(--scatter-rotation) + 90deg),
-                transparent 40%,
-                rgba(0, 170, 255, 0.1) 50%,
-                transparent 60%
-            );
+            background: linear-gradient(calc(var(--scatter-rotation) + 90deg),
+                    transparent 40%,
+                    rgba(0, 170, 255, 0.1) 50%,
+                    transparent 60%);
             opacity: calc((1 - var(--magnetic-progress)) * 0.5);
             pointer-events: none;
             border-radius: 20px;
@@ -1207,11 +1520,13 @@
                     0 4px 30px rgba(0, 0, 0, 0.3),
                     0 0 0 0 rgba(0, 170, 255, 0);
             }
+
             50% {
                 box-shadow:
                     0 4px 30px rgba(0, 0, 0, 0.3),
                     0 0 40px 10px rgba(0, 170, 255, 0.4);
             }
+
             100% {
                 box-shadow:
                     0 4px 30px rgba(0, 0, 0, 0.3),
@@ -2190,38 +2505,31 @@
         </div>
     </section>
 
-    <!-- Project 3: AgentBench -->
-    <section class="scene" data-project="3">
-        <div class="scene-sticky">
-            <div class="project-scene">
-                <span class="project-number">03</span>
-                <div class="project-content">
-                    <div class="project-label" data-animate>AI Infrastructure</div>
-                    <h2 class="project-title" data-animate data-split>AgentBench</h2>
-                    <p class="project-description" data-animate>
-                        Comprehensive evaluation framework for AI agents. Built with LlamaIndex and Arize Phoenix
-                        telemetry for automated assessment of agent reasoning, tool selection, and execution efficiency.
-                    </p>
-                    <div class="project-tech" data-animate>
-                        <span class="tech-item">LlamaIndex</span>
-                        <span class="tech-item">Arize Phoenix</span>
-                        <span class="tech-item">Python</span>
-                        <span class="tech-item">Multi-Agent</span>
-                    </div>
-                </div>
-                <div class="project-visual">
-                    <div class="visual-layer visual-layer-1"></div>
-                    <div class="visual-layer visual-layer-2"></div>
-                    <div class="visual-layer visual-layer-3">
-                        <span class="visual-icon" data-animate>🤖</span>
-                    </div>
-                </div>
+    <!-- Projects Toggle - Dynamic Island -->
+    <div class="projects-toggle-wrapper">
+        <button class="projects-toggle" id="projectsToggle">
+            <div class="toggle-content">
+                <span class="toggle-text" id="toggleText">Show More Projects</span>
+                <span class="toggle-arrow">
+                    <svg viewBox="0 0 24 24">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </span>
             </div>
-        </div>
-    </section>
+            <div class="category-pills" id="categoryPills">
+                <span class="category-pill active" data-category="all">All</span>
+                <span class="category-pill" data-category="software">Software Dev</span>
+                <span class="category-pill" data-category="architecture">Computer Arch</span>
+                <span class="category-pill" data-category="networking">Networking</span>
+                <span class="category-pill" data-category="ai">Generative AI</span>
+                <span class="category-pill" data-category="cloud">Cloud</span>
+                <span class="category-pill" data-category="bigdata">Big Data</span>
+            </div>
+        </button>
+    </div>
 
     <!-- More Projects - Magnetic Scatter Gallery -->
-    <section class="magnetic-gallery" id="magneticGallery">
+    <section class="magnetic-gallery hidden" id="magneticGallery">
         <div class="magnetic-stage">
             <!-- Central attractor orb -->
             <div class="magnetic-attractor"></div>
@@ -2231,7 +2539,7 @@
             <!-- Project cards grid -->
             <div class="magnetic-grid" id="magneticGrid">
                 <!-- Card 1 -->
-                <div class="magnetic-card" data-card-index="0">
+                <div class="magnetic-card" data-card-index="0" data-category="software">
                     <div class="project-card-header">
                         <div class="project-card-icon">👥</div>
                         <a href="#" class="project-card-link">
@@ -2255,7 +2563,7 @@
                 </div>
 
                 <!-- Card 2 -->
-                <div class="magnetic-card" data-card-index="1">
+                <div class="magnetic-card" data-card-index="1" data-category="software">
                     <div class="project-card-header">
                         <div class="project-card-icon">🏨</div>
                         <a href="#" class="project-card-link">
@@ -2279,7 +2587,7 @@
                 </div>
 
                 <!-- Card 3 -->
-                <div class="magnetic-card" data-card-index="2">
+                <div class="magnetic-card" data-card-index="2" data-category="architecture">
                     <div class="project-card-header">
                         <div class="project-card-icon">💾</div>
                         <a href="#" class="project-card-link">
@@ -2303,7 +2611,7 @@
                 </div>
 
                 <!-- Card 4 -->
-                <div class="magnetic-card" data-card-index="3">
+                <div class="magnetic-card" data-card-index="3" data-category="architecture">
                     <div class="project-card-header">
                         <div class="project-card-icon">⚡</div>
                         <a href="#" class="project-card-link">
@@ -2327,7 +2635,7 @@
                 </div>
 
                 <!-- Card 5 -->
-                <div class="magnetic-card" data-card-index="4">
+                <div class="magnetic-card" data-card-index="4" data-category="ai">
                     <div class="project-card-header">
                         <div class="project-card-icon">🤖</div>
                         <a href="#" class="project-card-link">
@@ -2351,7 +2659,7 @@
                 </div>
 
                 <!-- Card 6 -->
-                <div class="magnetic-card" data-card-index="5">
+                <div class="magnetic-card" data-card-index="5" data-category="ai">
                     <div class="project-card-header">
                         <div class="project-card-icon">🧠</div>
                         <a href="#" class="project-card-link">
@@ -2375,7 +2683,7 @@
                 </div>
 
                 <!-- Card 7 -->
-                <div class="magnetic-card" data-card-index="6">
+                <div class="magnetic-card" data-card-index="6" data-category="bigdata">
                     <div class="project-card-header">
                         <div class="project-card-icon">📈</div>
                         <a href="#" class="project-card-link">
@@ -2399,7 +2707,7 @@
                 </div>
 
                 <!-- Card 8 -->
-                <div class="magnetic-card" data-card-index="7">
+                <div class="magnetic-card" data-card-index="7" data-category="cloud">
                     <div class="project-card-header">
                         <div class="project-card-icon">🌤️</div>
                         <a href="#" class="project-card-link">
@@ -2423,7 +2731,7 @@
                 </div>
 
                 <!-- Card 9 -->
-                <div class="magnetic-card" data-card-index="8">
+                <div class="magnetic-card" data-card-index="8" data-category="cloud ai">
                     <div class="project-card-header">
                         <div class="project-card-icon">📺</div>
                         <a href="#" class="project-card-link">
@@ -2447,7 +2755,7 @@
                 </div>
 
                 <!-- Card 10 -->
-                <div class="magnetic-card" data-card-index="9">
+                <div class="magnetic-card" data-card-index="9" data-category="networking">
                     <div class="project-card-header">
                         <div class="project-card-icon">📊</div>
                         <a href="#" class="project-card-link">
@@ -2471,7 +2779,7 @@
                 </div>
 
                 <!-- Card 11 -->
-                <div class="magnetic-card" data-card-index="10">
+                <div class="magnetic-card" data-card-index="10" data-category="networking">
                     <div class="project-card-header">
                         <div class="project-card-icon">📡</div>
                         <a href="#" class="project-card-link">
@@ -2525,23 +2833,31 @@
         <div class="marquee">
             <div class="marquee-content">
                 <span class="skill-item">Python</span>
-                <span class="skill-item">TypeScript</span>
-                <span class="skill-item">LangChain</span>
-                <span class="skill-item">LlamaIndex</span>
-                <span class="skill-item">FastAPI</span>
+                <span class="skill-item">Java</span>
+                <span class="skill-item">Go</span>
+                <span class="skill-item">C++</span>
                 <span class="skill-item">Docker</span>
                 <span class="skill-item">AWS</span>
-                <span class="skill-item">GCP</span>
+                <span class="skill-item">FastAPI</span>
+                <span class="skill-item">Node.js</span>
+                <span class="skill-item">MySQL</span>
+                <span class="skill-item">LlamaIndex</span>
+                <span class="skill-item">LangChain</span>
+                <span class="skill-item">OpenAI</span>
             </div>
             <div class="marquee-content">
                 <span class="skill-item">Python</span>
-                <span class="skill-item">TypeScript</span>
-                <span class="skill-item">LangChain</span>
-                <span class="skill-item">LlamaIndex</span>
-                <span class="skill-item">FastAPI</span>
+                <span class="skill-item">Java</span>
+                <span class="skill-item">Go</span>
+                <span class="skill-item">C++</span>
                 <span class="skill-item">Docker</span>
                 <span class="skill-item">AWS</span>
-                <span class="skill-item">GCP</span>
+                <span class="skill-item">FastAPI</span>
+                <span class="skill-item">Node.js</span>
+                <span class="skill-item">MySQL</span>
+                <span class="skill-item">LlamaIndex</span>
+                <span class="skill-item">LangChain</span>
+                <span class="skill-item">OpenAI</span>
             </div>
         </div>
     </section>
@@ -3018,14 +3334,88 @@
             }
         }
 
-        // Initialize magnetic gallery
-        const magneticGallery = new MagneticGallery();
+        // ===== Projects Toggle - Dynamic Island =====
+        const projectsToggle = document.getElementById('projectsToggle');
+        const toggleText = document.getElementById('toggleText');
+        const categoryPills = document.getElementById('categoryPills');
+        const magneticGalleryEl = document.getElementById('magneticGallery');
+        const allCards = document.querySelectorAll('.magnetic-card');
+        let isProjectsExpanded = false;
+
+        projectsToggle.addEventListener('click', function(e) {
+            // Don't toggle if clicking on category pills
+            if (e.target.classList.contains('category-pill')) {
+                return;
+            }
+
+            isProjectsExpanded = !isProjectsExpanded;
+
+            if (isProjectsExpanded) {
+                // Expand with simple unfold animation
+                projectsToggle.classList.add('expanded');
+                toggleText.textContent = 'Projects';
+                magneticGalleryEl.classList.remove('hidden');
+                magneticGalleryEl.classList.add('simple-unfold');
+
+                // Set card index and re-trigger animation
+                allCards.forEach((card, index) => {
+                    card.style.setProperty('--card-index', index);
+                    card.style.animation = 'none';
+                    card.offsetHeight; // Trigger reflow
+                    card.style.animation = '';
+                });
+            } else {
+                // Collapse
+                projectsToggle.classList.remove('expanded');
+                toggleText.textContent = 'Show More Projects';
+                magneticGalleryEl.classList.add('hidden');
+
+                // Reset category filter
+                document.querySelectorAll('.category-pill').forEach(pill => {
+                    pill.classList.remove('active');
+                    if (pill.dataset.category === 'all') {
+                        pill.classList.add('active');
+                    }
+                });
+                allCards.forEach(card => card.style.display = '');
+            }
+        });
+
+        // Category filtering
+        categoryPills.addEventListener('click', function(e) {
+            if (!e.target.classList.contains('category-pill')) return;
+
+            e.stopPropagation();
+            const category = e.target.dataset.category;
+
+            // Update active state
+            document.querySelectorAll('.category-pill').forEach(pill => {
+                pill.classList.remove('active');
+            });
+            e.target.classList.add('active');
+
+            // Filter cards
+            allCards.forEach(card => {
+                const cardCategories = card.dataset.category.split(' ');
+                if (category === 'all' || cardCategories.includes(category)) {
+                    card.style.display = '';
+                    card.style.opacity = '1';
+                    card.style.transform = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
 
         // Add hover effect for magnetic cards
         document.querySelectorAll('.magnetic-card').forEach(el => {
             el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
             el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
         });
+
+        // Add hover effect for toggle and pills
+        projectsToggle.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+        projectsToggle.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
     </script>
 </body>
 
