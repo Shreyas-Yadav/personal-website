@@ -899,13 +899,29 @@
             color: var(--purple);
         }
 
+        /* Tech & Stats Sticky Scene */
+        .tech-stats-scene {
+            height: 150vh;
+            position: relative;
+        }
+
+        .tech-stats-sticky {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            padding: 60px 50px;
+        }
+
         /* Stats Counter Section */
         .stats-section {
-            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 100px 50px;
             position: relative;
         }
 
@@ -955,8 +971,9 @@
 
         /* Skills Marquee */
         .skills-section {
-            padding: 150px 0;
+            padding: 40px 0;
             overflow: hidden;
+            width: 100%;
         }
 
         .skills-label {
@@ -1307,14 +1324,33 @@
             }
 
             .projects-toggle {
-                flex-direction: column;
-                padding: 14px 24px;
-                max-width: calc(100vw - 32px);
+                flex-direction: row;
+                /* Keep row for collapsed state */
+                padding: 12px 24px;
+                width: fit-content;
+                margin: 0 auto;
+                max-width: 90%;
+                /* Remove the animated border on mobile and use subtle shadow only */
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+                background: rgba(30, 30, 30, 0.95);
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                min-height: 48px;
+            }
+
+            /* Hide the animated border pseudo-elements on mobile with high specificity */
+            .projects-toggle-wrapper .projects-toggle::before,
+            .projects-toggle-wrapper .projects-toggle::after {
+                content: none !important;
+                display: none !important;
+                opacity: 0 !important;
             }
 
             .projects-toggle.expanded {
-                padding: 16px 20px;
+                flex-direction: column;
+                /* Switch to column when expanded */
+                padding: 20px;
                 border-radius: 24px;
+                width: 100%;
             }
 
             .toggle-content {
@@ -1804,9 +1840,9 @@
             }
         }
 
-        /* About - Sticky Scroll Reveal */
+        /* About - Sticky Scene */
         .about-scene {
-            min-height: 150vh;
+            height: 150vh;
             position: relative;
         }
 
@@ -1816,39 +1852,28 @@
             height: 100vh;
             display: flex;
             align-items: center;
+            justify-content: center;
+            padding: 80px 50px;
+            box-sizing: border-box;
         }
 
+        /* About - Centered Text Reveal */
         .about-section {
-            width: 100%;
-            height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 100px 50px;
-            position: relative;
-            background: url('GoldenGate.jpg') center center / cover no-repeat;
-        }
-
-        .about-section::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.6);
-            z-index: 0;
+            padding: 120px 50px;
         }
 
         .about-content {
-            max-width: 1400px;
+            max-width: 1000px;
             display: flex;
             align-items: center;
-            gap: 60px;
-            position: relative;
-            z-index: 1;
+            justify-content: center;
         }
 
         .about-text {
-            flex: 1;
-            font-size: clamp(28px, 5vw, 56px);
+            font-size: clamp(24px, 4vw, 42px);
             font-weight: 600;
             letter-spacing: -0.03em;
             line-height: 1.3;
@@ -2223,9 +2248,21 @@
                 height: 14px;
             }
 
+            /* Tech & Stats Sticky Scene */
+            .tech-stats-scene {
+                height: auto;
+            }
+
+            .tech-stats-sticky {
+                position: relative;
+                height: auto;
+                padding: 60px 24px;
+                gap: 30px;
+            }
+
             /* Stats section */
             .stats-section {
-                padding: 60px 24px;
+                padding: 0;
                 min-height: auto;
             }
 
@@ -2243,7 +2280,7 @@
 
             /* Skills marquee */
             .skills-section {
-                padding: 80px 0;
+                padding: 20px 0;
             }
 
             .skill-item {
@@ -2258,20 +2295,21 @@
 
             /* About section */
             .about-scene {
-                min-height: 120vh;
+                height: auto;
+            }
+
+            .about-sticky {
+                position: relative;
+                height: auto;
             }
 
             .about-section {
                 padding: 60px 24px;
-            }
-
-            .about-section::before {
-                background: rgba(0, 0, 0, 0.65);
+                min-height: auto;
             }
 
             .about-content {
-                flex-direction: column;
-                gap: 40px;
+                max-width: 100%;
             }
 
             .about-text {
@@ -2849,69 +2887,78 @@
         </div>
     </section>
 
-    <!-- Stats -->
-    <section class="stats-section">
-        <div class="stats-grid">
-            <div class="stat-item">
-                <div class="stat-number" data-count="3.83" data-decimals="2">0</div>
-                <div class="stat-label">Graduate GPA</div>
+    <!-- Tech & Stats Sticky Scene -->
+    <section class="tech-stats-scene" id="techStatsScene">
+        <div class="tech-stats-sticky">
+            <!-- Skills Marquee -->
+            <div class="skills-section">
+                <div class="skills-label">Technologies</div>
+                <div class="marquee">
+                    <div class="marquee-content">
+                        <span class="skill-item">Python</span>
+                        <span class="skill-item">Java</span>
+                        <span class="skill-item">Go</span>
+                        <span class="skill-item">C++</span>
+                        <span class="skill-item">Docker</span>
+                        <span class="skill-item">AWS</span>
+                        <span class="skill-item">FastAPI</span>
+                        <span class="skill-item">Node.js</span>
+                        <span class="skill-item">MySQL</span>
+                        <span class="skill-item">LlamaIndex</span>
+                        <span class="skill-item">LangChain</span>
+                        <span class="skill-item">OpenAI</span>
+                    </div>
+                    <div class="marquee-content">
+                        <span class="skill-item">Python</span>
+                        <span class="skill-item">Java</span>
+                        <span class="skill-item">Go</span>
+                        <span class="skill-item">C++</span>
+                        <span class="skill-item">Docker</span>
+                        <span class="skill-item">AWS</span>
+                        <span class="skill-item">FastAPI</span>
+                        <span class="skill-item">Node.js</span>
+                        <span class="skill-item">MySQL</span>
+                        <span class="skill-item">LlamaIndex</span>
+                        <span class="skill-item">LangChain</span>
+                        <span class="skill-item">OpenAI</span>
+                    </div>
+                </div>
             </div>
-            <div class="stat-item">
-                <div class="stat-number" data-count="90" data-color="green">0</div>
-                <div class="stat-label">OSS Security Fixes</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number" data-color="purple">3rd</div>
-                <div class="stat-label">DeepMind Hackathon</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number" data-count="40" data-color="orange">0</div>
-                <div class="stat-label">GitHub Projects</div>
+
+            <!-- Stats -->
+            <div class="stats-section">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="3.83" data-decimals="2">0</div>
+                        <div class="stat-label">Graduate GPA</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="90" data-color="green">0</div>
+                        <div class="stat-label">OSS Security Fixes</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-color="purple">3rd</div>
+                        <div class="stat-label">DeepMind Hackathon</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="40" data-color="orange">0</div>
+                        <div class="stat-label">GitHub Projects</div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Skills Marquee -->
-    <section class="skills-section">
-        <div class="skills-label">Technologies</div>
-        <div class="marquee">
-            <div class="marquee-content">
-                <span class="skill-item">Python</span>
-                <span class="skill-item">Java</span>
-                <span class="skill-item">Go</span>
-                <span class="skill-item">C++</span>
-                <span class="skill-item">Docker</span>
-                <span class="skill-item">AWS</span>
-                <span class="skill-item">FastAPI</span>
-                <span class="skill-item">Node.js</span>
-                <span class="skill-item">MySQL</span>
-                <span class="skill-item">LlamaIndex</span>
-                <span class="skill-item">LangChain</span>
-                <span class="skill-item">OpenAI</span>
-            </div>
-            <div class="marquee-content">
-                <span class="skill-item">Python</span>
-                <span class="skill-item">Java</span>
-                <span class="skill-item">Go</span>
-                <span class="skill-item">C++</span>
-                <span class="skill-item">Docker</span>
-                <span class="skill-item">AWS</span>
-                <span class="skill-item">FastAPI</span>
-                <span class="skill-item">Node.js</span>
-                <span class="skill-item">MySQL</span>
-                <span class="skill-item">LlamaIndex</span>
-                <span class="skill-item">LangChain</span>
-                <span class="skill-item">OpenAI</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- About -->
+    <!-- About - Sticky Scene -->
     <section class="about-scene" id="about">
         <div class="about-sticky">
             <div class="about-section">
                 <div class="about-content">
-                    <p class="about-text" id="about-text">I'm pursuing my Master's in Computer Science at the University of San Francisco, graduating May 2026. I build at the intersection of AI systems and security engineering. From real-time AI commentary that placed at hackathons, to container security tools contributing to Google's open source ecosystem. Currently in San Francisco, focused on production-grade systems that ship.</p>
+                    <p class="about-text" id="about-text">I'm pursuing my Master's in Computer Science at the University
+                        of San Francisco, graduating May 2026. I build at the intersection of AI systems and security
+                        engineering. From real-time AI commentary that placed at hackathons, to container security tools
+                        contributing to Google's open source ecosystem. Currently in San Francisco, focused on
+                        production-grade systems that ship.</p>
                 </div>
             </div>
         </div>
@@ -3133,31 +3180,29 @@
 
         document.querySelectorAll('.stat-number[data-count]').forEach(el => counterObserver.observe(el));
 
-        // About text word highlight on scroll
+        // About text word highlight on scroll - all words highlight together
         const aboutText = document.getElementById('about-text');
-        const words = aboutText.textContent.split(' ');
+        const words = aboutText.textContent.split(/\s+/).filter(word => word.length > 0);
         aboutText.innerHTML = words.map(word => `<span class="word">${word}</span>`).join(' ');
         const wordSpans = aboutText.querySelectorAll('.word');
 
-        const highlightWords = () => {
-            const rect = aboutText.getBoundingClientRect();
-            const viewportHeight = window.innerHeight;
-
-            // Start highlighting when top of element is 80% down the viewport
-            // Finish highlighting all words when top of element reaches 30% down the viewport
-            const startPoint = viewportHeight * 0.8;
-            const endPoint = viewportHeight * 0.3;
-
-            const scrollProgress = Math.max(0, Math.min(1, (startPoint - rect.top) / (startPoint - endPoint)));
-            const wordsToHighlight = Math.ceil(scrollProgress * wordSpans.length);
-
-            wordSpans.forEach((word, i) => {
-                word.classList.toggle('highlight', i < wordsToHighlight);
+        const aboutObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Highlight all words when section enters viewport
+                    wordSpans.forEach((word) => {
+                        word.classList.add('highlight');
+                    });
+                } else {
+                    // Remove highlight when section leaves viewport
+                    wordSpans.forEach((word) => {
+                        word.classList.remove('highlight');
+                    });
+                }
             });
-        };
+        }, { threshold: 0.1 }); // Trigger when 10% of section is visible
 
-        window.addEventListener('scroll', highlightWords);
-        highlightWords(); // Initial call
+        aboutObserver.observe(aboutText);
 
         // Parallax on visual layers
         document.querySelectorAll('.project-visual').forEach(visual => {
