@@ -1046,173 +1046,118 @@
 
         /* GCP blue */
 
-        /* Expandable Projects Section */
-        .more-projects-section {
-            padding: 80px 50px 120px;
-            max-width: 1400px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .filter-container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 40px;
-        }
-
-        .filter-btn {
-            padding: 10px 24px;
-            border-radius: 100px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--dim);
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .filter-btn:hover {
-            background: rgba(255, 255, 255, 0.08);
-            color: #fff;
-            transform: translateY(-2px);
-        }
-
-        .filter-btn.active {
-            background: #fff;
-            color: #000;
-            border-color: #fff;
-            font-weight: 600;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-        }
-
-        .projects-container {
-            display: block;
-            opacity: 1;
-            transition: opacity 0.5s ease;
-        }
-
-        .category-section {
-            animation: fadeIn 0.5s ease forwards;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Category Section */
-        .category-section {
-            margin-bottom: 60px;
-            text-align: left;
-        }
-
-        .category-header {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 32px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .category-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
+        /* ===== Magnetic Scatter Gallery ===== */
+        .magnetic-gallery {
             position: relative;
-            overflow: hidden;
+            overflow: visible;
+            padding: 80px 0 100px;
         }
 
-        .category-icon::before {
-            content: '';
+        .magnetic-stage {
+            width: 100%;
+            perspective: 1500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Central attractor orb */
+        .magnetic-attractor {
             position: absolute;
-            inset: 0;
-            opacity: 0.15;
-            border-radius: 12px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 170, 255, 0.4) 0%, rgba(0, 170, 255, 0.1) 40%, transparent 70%);
+            box-shadow:
+                0 0 60px rgba(0, 170, 255, 0.3),
+                0 0 120px rgba(0, 170, 255, 0.2),
+                inset 0 0 40px rgba(0, 170, 255, 0.2);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+            z-index: 3;
         }
 
-        /* Category Color Themes */
-        /* Category Color Themes */
-        .category-software-dev {
-            --theme-color: #3b82f6;
+        .magnetic-gallery.is-animating .magnetic-attractor {
+            opacity: 1;
+            animation: attractorPulse 2s ease-in-out infinite;
         }
 
-        .category-genai {
-            --theme-color: #a855f7;
+        .magnetic-gallery.is-assembled .magnetic-attractor {
+            opacity: 0;
         }
 
-        .category-networking {
-            --theme-color: #22c55e;
+        @keyframes attractorPulse {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+                box-shadow:
+                    0 0 60px rgba(0, 170, 255, 0.3),
+                    0 0 120px rgba(0, 170, 255, 0.2);
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.15);
+                box-shadow:
+                    0 0 80px rgba(0, 170, 255, 0.5),
+                    0 0 160px rgba(0, 170, 255, 0.3);
+            }
         }
 
-        .category-cloud {
-            --theme-color: #f97316;
-        }
-
-        .category-bigdata {
-            --theme-color: #06b6d4;
-        }
-
-        .category-devops {
-            --theme-color: #ef4444;
-        }
-
-        .category-deeplearning {
-            --theme-color: #ec4899;
-        }
-
-        .category-architecture {
-            --theme-color: #eab308;
-        }
-
-        .category-section .category-icon {
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--theme-color);
-            background: rgba(255, 255, 255, 0.03);
-            box-shadow: 0 4px 20px -10px var(--theme-color);
-        }
-
-        .category-section .category-icon::before {
-            background: radial-gradient(circle at center, var(--theme-color), transparent 70%);
-            opacity: 0.2;
-        }
-
-        .category-section .category-title {
-            color: var(--theme-color);
-            font-size: 24px;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-        }
-
-        .category-count {
-            font-size: 13px;
-            color: var(--dim);
-            margin-left: auto;
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        /* Enhanced Project Cards Grid */
-        .projects-grid {
+        /* Grid container */
+        .magnetic-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 24px;
+            max-width: 1400px;
+            padding: 0 50px;
+            width: 100%;
+            position: relative;
+            z-index: 2;
         }
 
-        .project-card {
+        /* Floating particles */
+        .magnetic-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+            box-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent);
+            z-index: 0;
+        }
+
+        .magnetic-gallery.is-animating .magnetic-particle {
+            animation: particleFloat 3s ease-in-out infinite;
+        }
+
+        .magnetic-gallery.is-assembled .magnetic-particle {
+            opacity: 0 !important;
+        }
+
+        @keyframes particleFloat {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translate(var(--particle-drift-x, 20px), var(--particle-drift-y, -30px)) scale(1.5);
+                opacity: 1;
+            }
+        }
+
+        /* Magnetic Card - individual project cards */
+        .magnetic-card {
+            --theme-color: rgba(255, 255, 255, 0.5);
+            --scatter-x: 0px;
+            --scatter-y: 0px;
+            --scatter-rotation: 0deg;
+            --scatter-z: 0px;
+            --magnetic-progress: 0;
             background: rgba(20, 20, 20, 0.6);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
@@ -1220,13 +1165,103 @@
             border-radius: 20px;
             padding: 32px;
             text-align: left;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             cursor: pointer;
             position: relative;
             overflow: hidden;
-            transform: translateY(0);
-            opacity: 1;
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            /* Magnetic scatter transforms */
+            transform:
+                translateX(calc(var(--scatter-x) * (1 - var(--magnetic-progress))))
+                translateY(calc(var(--scatter-y) * (1 - var(--magnetic-progress))))
+                translateZ(calc(var(--scatter-z) * (1 - var(--magnetic-progress))))
+                rotate(calc(var(--scatter-rotation) * (1 - var(--magnetic-progress))));
+            opacity: calc(0.3 + (var(--magnetic-progress) * 0.7));
+            transition: box-shadow 0.3s ease, border-color 0.3s ease;
+            will-change: transform, opacity;
+        }
+
+        /* Motion blur effect during fast movement */
+        .magnetic-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                calc(var(--scatter-rotation) + 90deg),
+                transparent 40%,
+                rgba(0, 170, 255, 0.1) 50%,
+                transparent 60%
+            );
+            opacity: calc((1 - var(--magnetic-progress)) * 0.5);
+            pointer-events: none;
+            border-radius: 20px;
+        }
+
+        /* Magnetic pulse glow when assembling */
+        .magnetic-card.is-landing {
+            animation: magneticPulse 0.6s ease-out forwards;
+        }
+
+        @keyframes magneticPulse {
+            0% {
+                box-shadow:
+                    0 4px 30px rgba(0, 0, 0, 0.3),
+                    0 0 0 0 rgba(0, 170, 255, 0);
+            }
+            50% {
+                box-shadow:
+                    0 4px 30px rgba(0, 0, 0, 0.3),
+                    0 0 40px 10px rgba(0, 170, 255, 0.4);
+            }
+            100% {
+                box-shadow:
+                    0 4px 30px rgba(0, 0, 0, 0.3),
+                    0 0 0 0 rgba(0, 170, 255, 0);
+            }
+        }
+
+        /* Assembled state - enable hover effects */
+        .magnetic-gallery.is-assembled .magnetic-card {
+            transform: none;
+            opacity: 1;
+            transition:
+                transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.3s ease,
+                border-color 0.3s ease;
+        }
+
+        .magnetic-gallery.is-assembled .magnetic-card::after {
+            opacity: 0;
+        }
+
+        .magnetic-gallery.is-assembled .magnetic-card:hover {
+            transform: translateY(-6px) scale(1.01);
+            border-color: var(--theme-color);
+            box-shadow:
+                0 20px 40px -10px rgba(0, 0, 0, 0.6),
+                0 0 40px -10px var(--theme-color);
+        }
+
+        /* Project Cards (legacy class support) */
+        .project-card {
+            --theme-color: rgba(255, 255, 255, 0.5);
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 32px;
+            text-align: left;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            opacity: 1;
+            transform: translateY(0);
+            transition:
+                opacity 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                box-shadow 0.3s ease,
+                border-color 0.3s ease;
         }
 
         .project-card::before {
@@ -1396,69 +1431,60 @@
             background: rgba(255, 255, 255, 0.06);
         }
 
-        /* Category-specific card glows */
-        .category-software-dev .project-card {
-            --card-glow: rgba(59, 130, 246, 0.08);
+        /* Tablet: 2 columns for magnetic gallery */
+        @media (max-width: 1024px) {
+            .magnetic-grid {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 0 40px;
+            }
+
+            /* Reduce scatter distance on tablet */
+            .magnetic-card {
+                --scatter-x: calc(var(--scatter-x) * 0.6);
+                --scatter-y: calc(var(--scatter-y) * 0.6);
+            }
+
+            .magnetic-attractor {
+                width: 80px;
+                height: 80px;
+            }
         }
 
-        .category-genai .project-card {
-            --card-glow: rgba(168, 85, 247, 0.08);
-        }
-
-        .category-networking .project-card {
-            --card-glow: rgba(34, 197, 94, 0.08);
-        }
-
-        .category-cloud .project-card {
-            --card-glow: rgba(249, 115, 22, 0.08);
-        }
-
-        .category-bigdata .project-card {
-            --card-glow: rgba(6, 182, 212, 0.08);
-        }
-
-        .category-devops .project-card {
-            --card-glow: rgba(239, 68, 68, 0.08);
-        }
-
-        .category-deeplearning .project-card {
-            --card-glow: rgba(236, 72, 153, 0.08);
-        }
-
-        .category-architecture .project-card {
-            --card-glow: rgba(234, 179, 8, 0.08);
-        }
-
+        /* Mobile: 1 column, simplified animation */
         @media (max-width: 768px) {
-            .more-projects-section {
-                padding: 60px 24px 100px;
+            .magnetic-gallery {
+                padding: 60px 0 80px;
             }
 
-            .projects-grid {
+            .magnetic-grid {
                 grid-template-columns: 1fr;
+                padding: 0 24px;
+                gap: 16px;
             }
 
-            .category-header {
-                flex-wrap: wrap;
-            }
-
-            .category-count {
-                width: 100%;
-                margin-left: 64px;
-                margin-top: -8px;
-            }
-
-            .project-card {
+            /* Simplified mobile animation - reduce scatter, disable 3D */
+            .magnetic-card {
+                --scatter-x: calc(var(--scatter-x) * 0.4);
+                --scatter-y: calc(var(--scatter-y) * 0.4);
+                --scatter-z: 0px;
+                --scatter-rotation: calc(var(--scatter-rotation) * 0.5);
                 padding: 24px;
             }
 
-            .project-card-features {
-                gap: 6px;
+            /* Hide particles on mobile for performance */
+            .magnetic-particle {
+                display: none;
             }
 
-            .feature-item {
-                font-size: 11px;
-                padding: 5px 10px;
+            /* Smaller attractor on mobile */
+            .magnetic-attractor {
+                width: 60px;
+                height: 60px;
+            }
+
+            /* Disable perspective on mobile */
+            .magnetic-stage {
+                perspective: none;
             }
         }
 
@@ -2194,438 +2220,280 @@
         </div>
     </section>
 
-    <!-- More Projects - Expandable Categories -->
-    <section class="more-projects-section">
-        <div class="filter-container">
-            <button class="filter-btn active" data-filter="all">All Projects</button>
-            <button class="filter-btn" data-filter="software-dev">Software Dev</button>
-            <button class="filter-btn" data-filter="architecture">Architecture</button>
-            <button class="filter-btn" data-filter="genai">GenAI</button>
-            <button class="filter-btn" data-filter="bigdata">Big Data</button>
-            <button class="filter-btn" data-filter="cloud">Cloud</button>
-            <button class="filter-btn" data-filter="networking">Networking</button>
-        </div>
-        <div class="projects-container" id="projectsContainer">
+    <!-- More Projects - Magnetic Scatter Gallery -->
+    <section class="magnetic-gallery" id="magneticGallery">
+        <div class="magnetic-stage">
+            <!-- Central attractor orb -->
+            <div class="magnetic-attractor"></div>
 
-            <!-- Software Development Category -->
-            <div class="category-section category-software-dev">
-                <div class="category-header">
-                    <div class="category-icon">💻</div>
-                    <h3 class="category-title">Software Development</h3>
-                    <span class="category-count">2 projects</span>
-                </div>
-                <div class="projects-grid">
-                    <!-- Social Network App -->
-                    <div class="project-card">
-                        <div class="project-card-header">
-                            <div class="project-card-icon">👥</div>
-                            <a href="#" class="project-card-link">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M7 17L17 7M17 7H7M17 7V17" />
-                                </svg>
-                            </a>
-                        </div>
-                        <div class="project-card-content">
-                            <h4 class="project-card-title">Social Network Desktop App</h4>
-                            <p class="project-card-desc">
-                                Desktop application simulating a social network with interactive GUI.
-                                Implements Observer and Factory Method design patterns for real-time
-                                notifications and dynamic user profile creation.
-                            </p>
-                            <div class="project-card-features">
-                                <span class="feature-item">Observer Pattern</span>
-                                <span class="feature-item">Factory Method</span>
-                                <span class="feature-item">Interactive GUI</span>
-                                <span class="feature-item">JSON Persistence</span>
-                            </div>
-                            <div class="project-card-tags">
-                                <span class="project-tag">Java</span>
-                                <span class="project-tag">Swing</span>
-                                <span class="project-tag">JUnit</span>
-                                <span class="project-tag">Design Patterns</span>
-                            </div>
-                        </div>
+            <!-- Particles will be generated by JavaScript -->
+
+            <!-- Project cards grid -->
+            <div class="magnetic-grid" id="magneticGrid">
+                <!-- Card 1 -->
+                <div class="magnetic-card" data-card-index="0">
+                    <div class="project-card-header">
+                        <div class="project-card-icon">👥</div>
+                        <a href="#" class="project-card-link">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M7 17L17 7M17 7H7M17 7V17" />
+                            </svg>
+                        </a>
                     </div>
-
-                    <!-- Hotel Reviews Management System -->
-                    <div class="project-card">
-                        <div class="project-card-header">
-                            <div class="project-card-icon">🏨</div>
-                            <a href="#" class="project-card-link">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M7 17L17 7M17 7H7M17 7V17" />
-                                </svg>
-                            </a>
-                        </div>
-                        <div class="project-card-content">
-                            <h4 class="project-card-title">Hotel Reviews Management System</h4>
-                            <p class="project-card-desc">
-                                Full-stack web application for hotel review management with secure authentication,
-                                bookmarking, interactive MapBox integration, and RESTful APIs. Features SHA-256
-                                password hashing and session-based security.
-                            </p>
-                            <div class="project-card-features">
-                                <span class="feature-item">User Authentication</span>
-                                <span class="feature-item">CRUD Operations</span>
-                                <span class="feature-item">MapBox Integration</span>
-                                <span class="feature-item">Responsive Design</span>
-                            </div>
-                            <div class="project-card-tags">
-                                <span class="project-tag">Java 17</span>
-                                <span class="project-tag">MySQL</span>
-                                <span class="project-tag">Jetty</span>
-                                <span class="project-tag">Velocity</span>
-                                <span class="project-tag">Bootstrap</span>
-                                <span class="project-tag">REST API</span>
-                            </div>
+                    <div class="project-card-content">
+                        <h4 class="project-card-title">Social Network Desktop App</h4>
+                        <p class="project-card-desc">
+                            Desktop application simulating a social network with interactive GUI.
+                            Implements Observer and Factory Method design patterns for real-time notifications.
+                        </p>
+                        <div class="project-card-tags">
+                            <span class="project-tag">Java</span>
+                            <span class="project-tag">Swing</span>
+                            <span class="project-tag">Design Patterns</span>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Computer Architecture Category -->
-            <div class="category-section category-architecture">
-                <div class="category-header">
-                    <div class="category-icon">⚙️</div>
-                    <h3 class="category-title">Computer Architecture</h3>
-                    <span class="category-count">2 projects</span>
-                </div>
-                <div class="projects-grid">
-                    <!-- Single-Cycle Processor -->
-                    <div class="project-card">
-                        <div class="project-card-header">
-                            <div class="project-card-icon">💾</div>
-                            <a href="#" class="project-card-link">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M7 17L17 7M17 7H7M17 7V17" />
-                                </svg>
-                            </a>
-                        </div>
-                        <div class="project-card-content">
-                            <h4 class="project-card-title">Single-Cycle RISC-V Processor</h4>
-                            <p class="project-card-desc">
-                                Implementation of a complete single-cycle RISC-V processor using Digital logic
-                                simulator.
-                                Features full instruction support including ALU operations, memory access (Load/Store),
-                                and branch handling with a comprehensive instruction decoder.
-                            </p>
-                            <div class="project-card-features">
-                                <span class="feature-item">ALU Design</span>
-                                <span class="feature-item">Instruction Decoder</span>
-                                <span class="feature-item">Register File</span>
-                                <span class="feature-item">Memory Control</span>
-                            </div>
-                            <div class="project-card-tags">
-                                <span class="project-tag">RISC-V</span>
-                                <span class="project-tag">Digital Logic</span>
-                                <span class="project-tag">Assembly</span>
-                                <span class="project-tag">Circuit Design</span>
-                            </div>
-                        </div>
+                <!-- Card 2 -->
+                <div class="magnetic-card" data-card-index="1">
+                    <div class="project-card-header">
+                        <div class="project-card-icon">🏨</div>
+                        <a href="#" class="project-card-link">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M7 17L17 7M17 7H7M17 7V17" />
+                            </svg>
+                        </a>
                     </div>
-
-                    <!-- Pipelined Processor -->
-                    <div class="project-card">
-                        <div class="project-card-header">
-                            <div class="project-card-icon">⚡</div>
-                            <a href="#" class="project-card-link">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M7 17L17 7M17 7H7M17 7V17" />
-                                </svg>
-                            </a>
-                        </div>
-                        <div class="project-card-content">
-                            <h4 class="project-card-title">Pipelined RISC-V Processor</h4>
-                            <p class="project-card-desc">
-                                Advanced 5-stage pipelined processor implementation featuring hazard detection and
-                                forwarding units. Optimizes instruction throughput with structural, data, and
-                                control hazard resolution (stalling/flushing).
-                            </p>
-                            <div class="project-card-features">
-                                <span class="feature-item">5-Stage Pipeline</span>
-                                <span class="feature-item">Hazard Detection</span>
-                                <span class="feature-item">Data Forwarding</span>
-                                <span class="feature-item">Branch Prediction</span>
-                            </div>
-                            <div class="project-card-tags">
-                                <span class="project-tag">RISC-V</span>
-                                <span class="project-tag">Pipeline Arch</span>
-                                <span class="project-tag">Hazard Unit</span>
-                                <span class="project-tag">Digital Sim</span>
-                            </div>
+                    <div class="project-card-content">
+                        <h4 class="project-card-title">Hotel Reviews System</h4>
+                        <p class="project-card-desc">
+                            Full-stack web application for hotel review management with secure authentication,
+                            MapBox integration, and RESTful APIs.
+                        </p>
+                        <div class="project-card-tags">
+                            <span class="project-tag">Java 17</span>
+                            <span class="project-tag">MySQL</span>
+                            <span class="project-tag">REST API</span>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- GenAI Category -->
-            <div class="category-section category-genai">
-                <div class="category-header">
-                    <div class="category-icon">✨</div>
-                    <h3 class="category-title">GenAI</h3>
-                    <span class="category-count">2 projects</span>
-                </div>
-                <div class="projects-grid">
-                    <!-- AgentBench -->
-                    <div class="project-card">
-                        <div class="project-card-header">
-                            <div class="project-card-icon">🤖</div>
-                            <a href="#" class="project-card-link">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M7 17L17 7M17 7H7M17 7V17" />
-                                </svg>
-                            </a>
-                        </div>
-                        <div class="project-card-content">
-                            <h4 class="project-card-title">AgentBench Framework</h4>
-                            <p class="project-card-desc">
-                                Comprehensive evaluation framework for GitHub agents using LlamaIndex and Arize Phoenix.
-                                Automated assessment of agent reasoning, tool selection, and execution efficiency
-                                across single and multi-agent architectures.
-                            </p>
-                            <div class="project-card-features">
-                                <span class="feature-item">Multi-Agent Eval</span>
-                                <span class="feature-item">Phoenix Telemetry</span>
-                                <span class="feature-item">ReAct Analysis</span>
-                                <span class="feature-item">Sequence Optimality</span>
-                            </div>
-                            <div class="project-card-tags">
-                                <span class="project-tag">LlamaIndex</span>
-                                <span class="project-tag">Python</span>
-                                <span class="project-tag">GPT-4o</span>
-                                <span class="project-tag">Arize Phoenix</span>
-                            </div>
-                        </div>
+                <!-- Card 3 -->
+                <div class="magnetic-card" data-card-index="2">
+                    <div class="project-card-header">
+                        <div class="project-card-icon">💾</div>
+                        <a href="#" class="project-card-link">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M7 17L17 7M17 7H7M17 7V17" />
+                            </svg>
+                        </a>
                     </div>
-
-                    <!-- Code RAG Assistant -->
-                    <div class="project-card">
-                        <div class="project-card-header">
-                            <div class="project-card-icon">🧠</div>
-                            <a href="#" class="project-card-link">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M7 17L17 7M17 7H7M17 7V17" />
-                                </svg>
-                            </a>
-                        </div>
-                        <div class="project-card-content">
-                            <h4 class="project-card-title">Code RAG Assistant</h4>
-                            <p class="project-card-desc">
-                                Advanced RAG system for codebases using ChromaDB and Voyage AI embeddings.
-                                Features AST-based code chunking, semantic retrieval, and entity-based filtering
-                                to help developers navigate complex code repositories.
-                            </p>
-                            <div class="project-card-features">
-                                <span class="feature-item">AST Chunking</span>
-                                <span class="feature-item">Semantic Search</span>
-                                <span class="feature-item">Entity Filtering</span>
-                                <span class="feature-item">ChromaDB</span>
-                            </div>
-                            <div class="project-card-tags">
-                                <span class="project-tag">LlamaIndex</span>
-                                <span class="project-tag">Voyage AI</span>
-                                <span class="project-tag">Tree-sitter</span>
-                                <span class="project-tag">Python</span>
-                            </div>
+                    <div class="project-card-content">
+                        <h4 class="project-card-title">Single-Cycle RISC-V Processor</h4>
+                        <p class="project-card-desc">
+                            Complete single-cycle RISC-V processor implementation with ALU operations,
+                            memory access, and comprehensive instruction decoder.
+                        </p>
+                        <div class="project-card-tags">
+                            <span class="project-tag">RISC-V</span>
+                            <span class="project-tag">Digital Logic</span>
+                            <span class="project-tag">Assembly</span>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Big Data Category -->
-            <div class="category-section category-bigdata">
-                <div class="category-header">
-                    <div class="category-icon">📊</div>
-                    <h3 class="category-title">Big Data</h3>
-                    <span class="category-count">1 project</span>
-                </div>
-                <div class="projects-grid">
-                    <!-- GoLog Analyzer -->
-                    <div class="project-card">
-                        <div class="project-card-header">
-                            <div class="project-card-icon">📈</div>
-                            <a href="#" class="project-card-link">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M7 17L17 7M17 7H7M17 7V17" />
-                                </svg>
-                            </a>
+                <!-- Card 4 -->
+                <div class="magnetic-card" data-card-index="3">
+                    <div class="project-card-header">
+                        <div class="project-card-icon">⚡</div>
+                        <a href="#" class="project-card-link">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M7 17L17 7M17 7H7M17 7V17" />
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="project-card-content">
+                        <h4 class="project-card-title">Pipelined RISC-V Processor</h4>
+                        <p class="project-card-desc">
+                            Advanced 5-stage pipelined processor with hazard detection and forwarding units.
+                            Optimizes instruction throughput with hazard resolution.
+                        </p>
+                        <div class="project-card-tags">
+                            <span class="project-tag">RISC-V</span>
+                            <span class="project-tag">Pipeline</span>
+                            <span class="project-tag">Hazard Unit</span>
                         </div>
-                        <div class="project-card-content">
-                            <h4 class="project-card-title">GoLog Analyzer</h4>
-                            <p class="project-card-desc">
-                                High-performance log analysis tool optimized for processing large-scale web server logs.
-                                Built with Go for parallel processing efficiency, it parses TSV datasets to identify
-                                crawler patterns, top domains, and traffic anomalies with minimal latency.
-                            </p>
-                            <div class="project-card-features">
-                                <span class="feature-item">Log Processing</span>
-                                <span class="feature-item">Statistical Analysis</span>
-                                <span class="feature-item">Performance Optimized</span>
-                                <span class="feature-item">Data Aggregation</span>
-                            </div>
-                            <div class="project-card-tags">
-                                <span class="project-tag">Go (Golang)</span>
-                                <span class="project-tag">Data Pipelines</span>
-                                <span class="project-tag">Log Analysis</span>
-                                <span class="project-tag">Concurrency</span>
-                            </div>
+                    </div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="magnetic-card" data-card-index="4">
+                    <div class="project-card-header">
+                        <div class="project-card-icon">🤖</div>
+                        <a href="#" class="project-card-link">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M7 17L17 7M17 7H7M17 7V17" />
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="project-card-content">
+                        <h4 class="project-card-title">AgentBench Framework</h4>
+                        <p class="project-card-desc">
+                            Evaluation framework for AI agents using LlamaIndex and Arize Phoenix.
+                            Automated assessment of reasoning, tool selection, and execution efficiency.
+                        </p>
+                        <div class="project-card-tags">
+                            <span class="project-tag">LlamaIndex</span>
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">GPT-4o</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="magnetic-card" data-card-index="5">
+                    <div class="project-card-header">
+                        <div class="project-card-icon">🧠</div>
+                        <a href="#" class="project-card-link">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M7 17L17 7M17 7H7M17 7V17" />
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="project-card-content">
+                        <h4 class="project-card-title">Code RAG Assistant</h4>
+                        <p class="project-card-desc">
+                            Advanced RAG system for codebases using ChromaDB and Voyage AI embeddings.
+                            Features AST-based code chunking and semantic retrieval.
+                        </p>
+                        <div class="project-card-tags">
+                            <span class="project-tag">LlamaIndex</span>
+                            <span class="project-tag">Voyage AI</span>
+                            <span class="project-tag">Tree-sitter</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 7 -->
+                <div class="magnetic-card" data-card-index="6">
+                    <div class="project-card-header">
+                        <div class="project-card-icon">📈</div>
+                        <a href="#" class="project-card-link">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M7 17L17 7M17 7H7M17 7V17" />
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="project-card-content">
+                        <h4 class="project-card-title">GoLog Analyzer</h4>
+                        <p class="project-card-desc">
+                            High-performance log analysis tool optimized for processing large-scale web server logs.
+                            Built with Go for parallel processing efficiency.
+                        </p>
+                        <div class="project-card-tags">
+                            <span class="project-tag">Go</span>
+                            <span class="project-tag">Concurrency</span>
+                            <span class="project-tag">Data Pipelines</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 8 -->
+                <div class="magnetic-card" data-card-index="7">
+                    <div class="project-card-header">
+                        <div class="project-card-icon">🌤️</div>
+                        <a href="#" class="project-card-link">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M7 17L17 7M17 7H7M17 7V17" />
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="project-card-content">
+                        <h4 class="project-card-title">Microservices Weather App</h4>
+                        <p class="project-card-desc">
+                            Containerized weather application with Node.js backend and Nginx frontend,
+                            deployed on AWS using Docker for scalability.
+                        </p>
+                        <div class="project-card-tags">
+                            <span class="project-tag">AWS</span>
+                            <span class="project-tag">Docker</span>
+                            <span class="project-tag">Node.js</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 9 -->
+                <div class="magnetic-card" data-card-index="8">
+                    <div class="project-card-header">
+                        <div class="project-card-icon">📺</div>
+                        <a href="#" class="project-card-link">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M7 17L17 7M17 7H7M17 7V17" />
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="project-card-content">
+                        <h4 class="project-card-title">Serverless Video Analyzer</h4>
+                        <p class="project-card-desc">
+                            Cloud-native architecture for AI video analysis with AWS Lambda,
+                            SQS event processing, and Whisper AI transcription.
+                        </p>
+                        <div class="project-card-tags">
+                            <span class="project-tag">AWS Lambda</span>
+                            <span class="project-tag">FastAPI</span>
+                            <span class="project-tag">Whisper AI</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 10 -->
+                <div class="magnetic-card" data-card-index="9">
+                    <div class="project-card-header">
+                        <div class="project-card-icon">📊</div>
+                        <a href="#" class="project-card-link">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M7 17L17 7M17 7H7M17 7V17" />
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="project-card-content">
+                        <h4 class="project-card-title">Link Compression Detector</h4>
+                        <p class="project-card-desc">
+                            Client-server tool for detecting network link compression by analyzing
+                            packet train inter-arrival times with entropy analysis.
+                        </p>
+                        <div class="project-card-tags">
+                            <span class="project-tag">C</span>
+                            <span class="project-tag">Sockets</span>
+                            <span class="project-tag">UDP/TCP</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 11 -->
+                <div class="magnetic-card" data-card-index="10">
+                    <div class="project-card-header">
+                        <div class="project-card-icon">📡</div>
+                        <a href="#" class="project-card-link">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M7 17L17 7M17 7H7M17 7V17" />
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="project-card-content">
+                        <h4 class="project-card-title">NS-3 QoS Simulation</h4>
+                        <p class="project-card-desc">
+                            Network simulation implementing SPQ and DRR scheduling algorithms
+                            with traffic classification and PCAP analysis.
+                        </p>
+                        <div class="project-card-tags">
+                            <span class="project-tag">C++</span>
+                            <span class="project-tag">NS-3</span>
+                            <span class="project-tag">Network Sim</span>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Cloud Computing Category -->
-            <div class="category-section category-cloud">
-                <div class="category-header">
-                    <div class="category-icon">☁️</div>
-                    <h3 class="category-title">Cloud Computing</h3>
-                    <span class="category-count">2 projects</span>
-                </div>
-                <div class="projects-grid">
-                    <!-- Weather App -->
-                    <div class="project-card">
-                        <div class="project-card-header">
-                            <div class="project-card-icon">🌤️</div>
-                            <a href="#" class="project-card-link">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M7 17L17 7M17 7H7M17 7V17" />
-                                </svg>
-                            </a>
-                        </div>
-                        <div class="project-card-content">
-                            <h4 class="project-card-title">Microservices Weather App</h4>
-                            <p class="project-card-desc">
-                                Containerized weather application built with a microservices architecture.
-                                Features a Node.js backend and Nginx frontend, deployed on AWS using Docker
-                                for isolation and scalability. Integrated with OpenWeatherMap API for real-time data.
-                            </p>
-                            <div class="project-card-features">
-                                <span class="feature-item">Docker Containers</span>
-                                <span class="feature-item">AWS Deployment</span>
-                                <span class="feature-item">Nginx Reverse Proxy</span>
-                                <span class="feature-item">Microservices</span>
-                            </div>
-                            <div class="project-card-tags">
-                                <span class="project-tag">AWS</span>
-                                <span class="project-tag">Docker</span>
-                                <span class="project-tag">Node.js</span>
-                                <span class="project-tag">Express</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- YT Analyzer -->
-                    <div class="project-card">
-                        <div class="project-card-header">
-                            <div class="project-card-icon">📺</div>
-                            <a href="#" class="project-card-link">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M7 17L17 7M17 7H7M17 7V17" />
-                                </svg>
-                            </a>
-                        </div>
-                        <div class="project-card-content">
-                            <h4 class="project-card-title">Serverless Video Analyzer</h4>
-                            <p class="project-card-desc">
-                                Cloud-native architecture for AI video analysis. Leverages AWS Lambda for serverless
-                                APIs,
-                                SQS for event-driven processing, and GPU-optimized EC2 instances for Whisper AI
-                                transcription.
-                                Securely deployed in a VPC with Cognito authentication.
-                            </p>
-                            <div class="project-card-features">
-                                <span class="feature-item">Serverless (Lambda)</span>
-                                <span class="feature-item">Event-Driven (SQS)</span>
-                                <span class="feature-item">GPU Computing</span>
-                                <span class="feature-item">Whisper AI</span>
-                            </div>
-                            <div class="project-card-tags">
-                                <span class="project-tag">AWS Lambda</span>
-                                <span class="project-tag">FastAPI</span>
-                                <span class="project-tag">React</span>
-                                <span class="project-tag">Cognito</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Computer Networking Category -->
-            <div class="category-section category-networking">
-                <div class="category-header">
-                    <div class="category-icon">🌐</div>
-                    <h3 class="category-title">Computer Networking</h3>
-                    <span class="category-count">2 projects</span>
-                </div>
-                <div class="projects-grid">
-                    <!-- Compression Detection -->
-                    <div class="project-card">
-                        <div class="project-card-header">
-                            <div class="project-card-icon">📊</div>
-                            <a href="#" class="project-card-link">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M7 17L17 7M17 7H7M17 7V17" />
-                                </svg>
-                            </a>
-                        </div>
-                        <div class="project-card-content">
-                            <h4 class="project-card-title">Link Compression Detector</h4>
-                            <p class="project-card-desc">
-                                Client-server tool for detecting network link compression by analyzing packet train
-                                inter-arrival times. Generates high/low entropy UDP payloads to differentiate
-                                behaviors and identifies compression algorithms using statistical timing analysis.
-                            </p>
-                            <div class="project-card-features">
-                                <span class="feature-item">Packet Train Probing</span>
-                                <span class="feature-item">Entropy Generation</span>
-                                <span class="feature-item">Timing Analysis</span>
-                                <span class="feature-item">JSON Config</span>
-                            </div>
-                            <div class="project-card-tags">
-                                <span class="project-tag">C Language</span>
-                                <span class="project-tag">Socket Prog</span>
-                                <span class="project-tag">Multi-threading</span>
-                                <span class="project-tag">UDP/TCP</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- QoS Simulation -->
-                    <div class="project-card">
-                        <div class="project-card-header">
-                            <div class="project-card-icon">📡</div>
-                            <a href="#" class="project-card-link">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M7 17L17 7M17 7H7M17 7V17" />
-                                </svg>
-                            </a>
-                        </div>
-                        <div class="project-card-content">
-                            <h4 class="project-card-title">NS-3 QoS Simulation</h4>
-                            <p class="project-card-desc">
-                                Network simulation framework implementing Strict Priority Queuing (SPQ) and
-                                Deficit Round Robin (DRR) scheduling algorithms using NS-3. Features custom
-                                traffic classification filters and comprehensive PCAP analysis for QoS validation.
-                            </p>
-                            <div class="project-card-features">
-                                <span class="feature-item">Traffic Scheduling</span>
-                                <span class="feature-item">Strict Priority (SPQ)</span>
-                                <span class="feature-item">Deficit RR (DRR)</span>
-                                <span class="feature-item">Wireshark Analysis</span>
-                            </div>
-                            <div class="project-card-tags">
-                                <span class="project-tag">C++</span>
-                                <span class="project-tag">NS-3</span>
-                                <span class="project-tag">Network Sim</span>
-                                <span class="project-tag">Packet Filter</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Placeholder for other categories - will be added as user provides projects -->
-
         </div>
     </section>
 
@@ -2960,40 +2828,201 @@
             });
         });
 
-        // Expandable projects grid
-        // Category Filtering
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const categorySections = document.querySelectorAll('.category-section');
+        // ===== Magnetic Scatter Gallery =====
+        class MagneticGallery {
+            constructor() {
+                this.gallery = document.getElementById('magneticGallery');
+                this.stage = this.gallery.querySelector('.magnetic-stage');
+                this.grid = document.getElementById('magneticGrid');
+                this.cards = this.gallery.querySelectorAll('.magnetic-card');
+                this.attractor = this.gallery.querySelector('.magnetic-attractor');
 
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Update active state
-                filterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
+                this.isAssembled = false;
+                this.progress = 0;
+                this.targetProgress = 0;
+                this.rafId = null;
 
-                const filter = btn.dataset.filter;
+                // Check for reduced motion preference
+                this.prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-                categorySections.forEach(section => {
-                    // Reset animation
-                    section.style.animation = 'none';
-                    section.offsetHeight; /* trigger reflow */
-                    section.style.animation = null;
+                this.init();
+            }
 
-                    if (filter === 'all') {
-                        section.style.display = 'block';
-                    } else {
-                        if (section.classList.contains(`category-${filter}`)) {
-                            section.style.display = 'block';
-                        } else {
-                            section.style.display = 'none';
-                        }
-                    }
+            init() {
+                if (this.prefersReducedMotion) {
+                    // Skip animation entirely for users who prefer reduced motion
+                    this.completeAssembly();
+                    return;
+                }
+
+                this.setupScatterPositions();
+                this.createParticles();
+                this.setupScrollListener();
+                this.startUpdateLoop();
+            }
+
+            setupScatterPositions() {
+                const isMobile = window.innerWidth <= 768;
+                const scatterMultiplier = isMobile ? 0.4 : 1;
+
+                this.cards.forEach((card, index) => {
+                    // Generate random scatter positions
+                    const angle = (index / this.cards.length) * Math.PI * 2 + Math.random() * 0.5;
+                    const distance = 300 + Math.random() * 300;
+
+                    const scatterX = Math.cos(angle) * distance * scatterMultiplier;
+                    const scatterY = Math.sin(angle) * distance * scatterMultiplier;
+                    const scatterRotation = (Math.random() - 0.5) * 60; // ±30deg
+                    const scatterZ = (Math.random() - 0.5) * 400; // ±200px
+
+                    // Set CSS custom properties
+                    card.style.setProperty('--scatter-x', `${scatterX}px`);
+                    card.style.setProperty('--scatter-y', `${scatterY}px`);
+                    card.style.setProperty('--scatter-rotation', `${scatterRotation}deg`);
+                    card.style.setProperty('--scatter-z', isMobile ? '0px' : `${scatterZ}px`);
+                    card.style.setProperty('--card-index', index);
                 });
-            });
-        });
+            }
 
-        // Add hover effect for project cards
-        document.querySelectorAll('.project-card').forEach(el => {
+            createParticles() {
+                // Don't create particles on mobile
+                if (window.innerWidth <= 768) return;
+
+                const particleCount = 20;
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'magnetic-particle';
+
+                    // Random position around center
+                    const angle = Math.random() * Math.PI * 2;
+                    const radius = 100 + Math.random() * 300;
+                    const x = 50 + (Math.cos(angle) * radius / window.innerWidth * 100);
+                    const y = 50 + (Math.sin(angle) * radius / window.innerHeight * 100);
+
+                    particle.style.left = `${x}%`;
+                    particle.style.top = `${y}%`;
+                    particle.style.setProperty('--particle-drift-x', `${(Math.random() - 0.5) * 60}px`);
+                    particle.style.setProperty('--particle-drift-y', `${(Math.random() - 0.5) * 60}px`);
+                    particle.style.animationDelay = `${Math.random() * 3}s`;
+                    particle.style.opacity = 0.3 + Math.random() * 0.4;
+
+                    this.stage.appendChild(particle);
+                }
+            }
+
+            setupScrollListener() {
+                // Use Intersection Observer to detect when gallery is in view
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            this.gallery.classList.add('is-animating');
+                        } else {
+                            if (!this.isAssembled) {
+                                this.gallery.classList.remove('is-animating');
+                            }
+                        }
+                    });
+                }, { threshold: 0.1 });
+
+                observer.observe(this.gallery);
+
+                // Scroll handler for progress calculation
+                window.addEventListener('scroll', () => this.handleScroll(), { passive: true });
+            }
+
+            handleScroll() {
+                if (this.isAssembled) return;
+
+                const rect = this.gallery.getBoundingClientRect();
+                const viewportHeight = window.innerHeight;
+
+                // Start animation when section top enters viewport
+                // Complete when section top reaches 20% from top of viewport
+                const scrollStart = viewportHeight * 0.9; // Start when top is at 90% of viewport
+                const scrollEnd = viewportHeight * 0.1; // End when top is at 10% of viewport
+                const scrollDistance = scrollStart - scrollEnd;
+
+                if (rect.top <= scrollStart && rect.top >= scrollEnd) {
+                    const currentScroll = scrollStart - rect.top;
+                    this.targetProgress = Math.min(1, Math.max(0, currentScroll / scrollDistance));
+                } else if (rect.top > scrollStart) {
+                    this.targetProgress = 0;
+                } else {
+                    this.targetProgress = 1;
+                }
+            }
+
+            startUpdateLoop() {
+                const update = () => {
+                    // Smooth easing toward target
+                    const ease = 0.08;
+                    this.progress += (this.targetProgress - this.progress) * ease;
+
+                    // Clamp very small differences
+                    if (Math.abs(this.targetProgress - this.progress) < 0.001) {
+                        this.progress = this.targetProgress;
+                    }
+
+                    // Update cards
+                    this.updateMagneticProgress(this.progress);
+
+                    // Check for assembly completion
+                    if (this.progress >= 0.98 && !this.isAssembled) {
+                        this.completeAssembly();
+                    }
+
+                    this.rafId = requestAnimationFrame(update);
+                };
+
+                this.rafId = requestAnimationFrame(update);
+            }
+
+            updateMagneticProgress(progress) {
+                // Apply eased progress with slight per-card variation
+                this.cards.forEach((card, index) => {
+                    // Stagger: earlier cards complete slightly sooner
+                    const staggerOffset = (index / this.cards.length) * 0.15;
+                    const cardProgress = Math.min(1, Math.max(0, (progress - staggerOffset) / (1 - staggerOffset)));
+
+                    // Apply cubic easing for more "magnetic" feel
+                    const easedProgress = this.easeOutCubic(cardProgress);
+
+                    card.style.setProperty('--magnetic-progress', easedProgress);
+                });
+            }
+
+            easeOutCubic(t) {
+                return 1 - Math.pow(1 - t, 3);
+            }
+
+            completeAssembly() {
+                this.isAssembled = true;
+                this.gallery.classList.remove('is-animating');
+                this.gallery.classList.add('is-assembled');
+
+                // Add landing pulse effect to each card with stagger
+                this.cards.forEach((card, index) => {
+                    setTimeout(() => {
+                        card.classList.add('is-landing');
+                        // Remove class after animation
+                        setTimeout(() => card.classList.remove('is-landing'), 600);
+                    }, index * 50);
+                });
+
+                // Stop the update loop after a short delay
+                setTimeout(() => {
+                    if (this.rafId) {
+                        cancelAnimationFrame(this.rafId);
+                    }
+                }, 1000);
+            }
+        }
+
+        // Initialize magnetic gallery
+        const magneticGallery = new MagneticGallery();
+
+        // Add hover effect for magnetic cards
+        document.querySelectorAll('.magnetic-card').forEach(el => {
             el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
             el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
         });
