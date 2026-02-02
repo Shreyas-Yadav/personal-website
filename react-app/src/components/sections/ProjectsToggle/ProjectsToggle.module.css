@@ -1,0 +1,162 @@
+/* Projects Toggle - Dynamic Island */
+.wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 60px 20px 40px;
+    position: relative;
+    z-index: 50;
+}
+
+.toggle {
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    padding: 16px 32px;
+    background: rgba(25, 25, 25, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    color: #fff;
+    width: auto;
+}
+
+/* Static subtle border */
+.borderGlow {
+    position: absolute;
+    inset: 0;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* No animation - just a clean border */
+
+.toggle:hover {
+    box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.5),
+        0 0 30px rgba(0, 170, 255, 0.2);
+}
+
+.toggle.expanded {
+    border-radius: 24px;
+    padding: 20px 32px;
+    gap: 16px;
+}
+
+.toggle.expanded .borderGlow {
+    border-radius: 24px;
+}
+
+.toggle.expanded .borderGlow::after,
+.expandedBorder::after {
+    border-radius: 23px;
+}
+
+.toggleContent {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    z-index: 1;
+}
+
+.toggleText {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.toggleArrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    transition: transform 0.3s ease;
+}
+
+.toggleArrow svg {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+    stroke-width: 2;
+    fill: none;
+}
+
+.toggle.expanded .toggleArrow {
+    transform: rotate(180deg);
+}
+
+.categoryPills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    z-index: 1;
+}
+
+.categoryPills.visible {
+    max-height: 200px;
+    opacity: 1;
+    padding-top: 8px;
+}
+
+.categoryPill {
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #888;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.categoryPill:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.categoryPill.active {
+    background: #fff;
+    color: #000;
+    border-color: #fff;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .wrapper {
+        padding: 40px 16px;
+    }
+
+    .toggle {
+        padding: 14px 24px;
+        max-width: 90%;
+    }
+
+    .toggle.expanded {
+        padding: 16px 24px;
+    }
+
+    .toggleText {
+        font-size: 14px;
+    }
+
+    .categoryPill {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+}

@@ -1,0 +1,51 @@
+/* About Section */
+.aboutScene {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.sticky {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.section {
+    padding: 80px 40px;
+    max-width: 1000px;
+}
+
+.content {
+    text-align: center;
+}
+
+.text {
+    font-size: clamp(24px, 4vw, 48px);
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: -0.02em;
+}
+
+.word {
+    display: inline;
+    color: var(--dim);
+    transition: color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.word.highlighted {
+    color: var(--text);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .section {
+        padding: 60px 20px;
+    }
+
+    .text {
+        font-size: clamp(20px, 3.5vw, 32px);
+    }
+}

@@ -1,0 +1,1 @@
+export { MagneticGallery } from './MagneticGallery';

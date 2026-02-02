@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+    --bg: #000;
+    --text: #fff;
+    --dim: #888;
+    --accent: #0af;
+    --purple: #b4f;
+    --green: #0d6;
+    --orange: #f90;
+    --pink: #f47;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Hide scrollbar but allow scroll */
+body::-webkit-scrollbar {
+    width: 0;
+}
+
+/* Noise overlay */
+.noise {
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    pointer-events: none;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ===== Global Projects Toggle Border Animations ===== */
+/* These must be global for @property CSS Houdini to work */
+
+@property --toggle-angle-left {
+    syntax: '<angle>';
+    initial-value: 180deg;
+    inherits: false;
+}
+
+@property --toggle-angle-right {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+}
+
+@keyframes toggleLightLeft {
+    to {
+        --toggle-angle-left: 540deg;
+    }
+}
+
+@keyframes toggleLightRight {
+    to {
+        --toggle-angle-right: -360deg;
+    }
+}
+
+/* Global toggle button selector for border animations */
+[class*="toggle"]::before {
+    animation-name: toggleLightLeft !important;
+}
+
+[class*="toggle"]::after {
+    animation-name: toggleLightRight !important;
+}
