@@ -370,9 +370,66 @@
             }
         }
 
+        .hero-name {
+            font-size: clamp(32px, 6vw, 72px);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+
+        .hero-name .name-char {
+            display: inline-block;
+            position: relative;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);
+            cursor: default;
+            background: linear-gradient(to top, #fff 0%, #fff 50%, transparent 50%, transparent 100%);
+            background-size: 100% 200%;
+            background-position: 0% 0%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: nameCharReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards,
+                nameLiquidFill 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            animation-delay: calc(var(--name-char-index) * 0.03s),
+                calc(0.8s + var(--name-char-index) * 0.05s);
+        }
+
+        @keyframes nameCharReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes nameLiquidFill {
+            0% {
+                background-position: 0% 0%;
+                -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);
+            }
+
+            100% {
+                background-position: 0% 100%;
+                -webkit-text-stroke: 1px #fff;
+            }
+        }
+
+        .hero-name .name-char.filled {
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .hero-name .name-char:hover {
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.5), 0 0 60px rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            transition: all 0.3s ease;
+        }
+
+
         .hero-title {
             font-size: clamp(48px, 15vw, 180px);
-            font-weight: 800;
+            font-weight: 900;
             letter-spacing: -0.05em;
             line-height: 0.9;
             overflow: hidden;
@@ -399,16 +456,82 @@
 
         .hero-title .hero-char {
             display: inline-block;
+            position: relative;
             color: transparent;
             -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.5);
-            transition: all 0.3s ease;
             cursor: default;
+            background: linear-gradient(to top, #fff 0%, #fff 50%, transparent 50%, transparent 100%);
+            background-size: 100% 200%;
+            background-position: 0% 0%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: liquidFill 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            animation-delay: calc(1.5s + var(--char-index) * 0.08s);
+        }
+
+        /* Liquid fill keyframe animation */
+        @keyframes liquidFill {
+            0% {
+                background-position: 0% 0%;
+                -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.5);
+            }
+
+            20% {
+                background-position: 0% 15%;
+            }
+
+            40% {
+                background-position: 0% 45%;
+            }
+
+            60% {
+                background-position: 0% 70%;
+            }
+
+            80% {
+                background-position: 0% 90%;
+            }
+
+            100% {
+                background-position: 0% 100%;
+                -webkit-text-stroke: 1.5px #fff;
+            }
+        }
+
+        /* Wave oscillation effect during fill */
+        .hero-title .hero-char::before {
+            content: attr(data-char);
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: transparent;
+            -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.3);
+            animation: waveOscillate 0.6s ease-in-out infinite;
+            animation-delay: calc(1.5s + var(--char-index) * 0.08s);
+            opacity: 0;
+        }
+
+        @keyframes waveOscillate {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-2px);
+            }
+        }
+
+        /* After fill complete - glow effect on hover */
+        .hero-title .hero-char.filled {
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
         }
 
         .hero-title .hero-char:hover {
-            color: #fff;
-            -webkit-text-stroke: 1.5px #fff;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            text-shadow: 0 0 40px rgba(255, 255, 255, 0.6), 0 0 80px rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            transition: all 0.3s ease;
         }
 
         .hero-sub {
@@ -931,179 +1054,379 @@
             text-align: center;
         }
 
-        .expand-trigger {
-            display: inline-flex;
-            align-items: center;
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
             gap: 12px;
-            padding: 18px 40px;
-            background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            margin-bottom: 40px;
+        }
+
+        .filter-btn {
+            padding: 10px 24px;
             border-radius: 100px;
-            color: var(--text);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--dim);
             font-size: 14px;
             font-weight: 500;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .filter-btn.active {
+            background: #fff;
+            color: #000;
+            border-color: #fff;
+            font-weight: 600;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .projects-container {
+            display: block;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        .category-section {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Category Section */
+        .category-section {
+            margin-bottom: 60px;
+            text-align: left;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .category-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
             position: relative;
             overflow: hidden;
         }
 
-        .expand-trigger::before {
+        .category-icon::before {
             content: '';
             position: absolute;
             inset: 0;
-            background: var(--text);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: 0;
+            opacity: 0.15;
+            border-radius: 12px;
         }
 
-        .expand-trigger:hover::before {
-            transform: scaleX(1);
+        /* Category Color Themes */
+        /* Category Color Themes */
+        .category-software-dev {
+            --theme-color: #3b82f6;
         }
 
-        .expand-trigger span,
-        .expand-trigger svg {
-            position: relative;
-            z-index: 1;
-            transition: color 0.3s;
+        .category-genai {
+            --theme-color: #a855f7;
         }
 
-        .expand-trigger:hover span,
-        .expand-trigger:hover svg {
-            color: var(--bg);
+        .category-networking {
+            --theme-color: #22c55e;
         }
 
-        .expand-trigger svg {
-            width: 18px;
-            height: 18px;
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        .category-cloud {
+            --theme-color: #f97316;
         }
 
-        .expand-trigger.expanded svg {
-            transform: rotate(180deg);
+        .category-bigdata {
+            --theme-color: #06b6d4;
         }
 
-        .expandable-grid {
+        .category-devops {
+            --theme-color: #ef4444;
+        }
+
+        .category-deeplearning {
+            --theme-color: #ec4899;
+        }
+
+        .category-architecture {
+            --theme-color: #eab308;
+        }
+
+        .category-section .category-icon {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--theme-color);
+            background: rgba(255, 255, 255, 0.03);
+            box-shadow: 0 4px 20px -10px var(--theme-color);
+        }
+
+        .category-section .category-icon::before {
+            background: radial-gradient(circle at center, var(--theme-color), transparent 70%);
+            opacity: 0.2;
+        }
+
+        .category-section .category-title {
+            color: var(--theme-color);
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .category-count {
+            font-size: 13px;
+            color: var(--dim);
+            margin-left: auto;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Enhanced Project Cards Grid */
+        .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 20px;
-            max-height: 0;
-            overflow: hidden;
-            opacity: 0;
-            margin-top: 0;
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 24px;
         }
 
-        .expandable-grid.visible {
-            max-height: 1200px;
-            opacity: 1;
-            margin-top: 60px;
-        }
-
-        .expand-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 16px;
-            padding: 28px;
+        .project-card {
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 32px;
             text-align: left;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             cursor: pointer;
             position: relative;
-            transform: translateY(20px);
+            overflow: hidden;
+            transform: translateY(0);
+            opacity: 1;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 20px;
+            padding: 1px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), transparent);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .project-card:hover {
+            transform: translateY(-6px) scale(1.01);
+            border-color: var(--theme-color);
+            box-shadow:
+                0 20px 40px -10px rgba(0, 0, 0, 0.6),
+                0 0 40px -10px var(--theme-color);
+        }
+
+        .project-card:hover::before {
             opacity: 0;
         }
 
-        .expandable-grid.visible .expand-card {
-            transform: translateY(0);
-            opacity: 1;
-        }
 
-        .expand-card:nth-child(1) {
-            transition-delay: 0.05s;
-        }
+        /* Card visibility handled by default state */
 
-        .expand-card:nth-child(2) {
-            transition-delay: 0.1s;
-        }
 
-        .expand-card:nth-child(3) {
-            transition-delay: 0.15s;
-        }
 
-        .expand-card:nth-child(4) {
-            transition-delay: 0.2s;
-        }
-
-        .expand-card:nth-child(5) {
-            transition-delay: 0.25s;
-        }
-
-        .expand-card:nth-child(6) {
-            transition-delay: 0.3s;
-        }
-
-        .expand-card:hover {
-            border-color: rgba(255, 255, 255, 0.15);
-            transform: translateY(-2px);
-            background: rgba(255, 255, 255, 0.03);
-        }
-
-        .expand-card-row {
+        /* Card Header */
+        .project-card-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 12px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
         }
 
-        .expand-card-icon {
-            font-size: 24px;
+        .project-card-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.4s;
         }
 
-        .expand-card-link {
-            width: 16px;
-            height: 16px;
-            color: var(--dim);
+        .project-card:hover .project-card-icon {
+            transform: scale(1.05);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .project-card-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             opacity: 0;
-            transform: translate(-4px, 4px);
-            transition: all 0.3s;
+            transform: translate(-8px, 8px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .expand-card:hover .expand-card-link {
+        .project-card-link svg {
+            width: 18px;
+            height: 18px;
+            color: var(--text);
+        }
+
+        .project-card:hover .project-card-link {
             opacity: 1;
             transform: translate(0, 0);
         }
 
-        .expand-card-title {
-            font-size: 17px;
-            font-weight: 600;
-            margin-bottom: 6px;
-            letter-spacing: -0.01em;
+        .project-card-link:hover {
+            background: var(--text);
         }
 
-        .expand-card-desc {
-            font-size: 13px;
+        .project-card-link:hover svg {
+            color: var(--bg);
+        }
+
+        /* Card Content */
+        .project-card-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-card-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 26px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            color: #fff;
+        }
+
+        .project-card-desc {
+            font-size: 14px;
             color: var(--dim);
-            line-height: 1.5;
-            margin-bottom: 16px;
+            line-height: 1.7;
+            margin-bottom: 24px;
         }
 
-        .expand-card-tags {
+        /* Features List */
+        .project-card-features {
             display: flex;
             flex-wrap: wrap;
-            gap: 6px;
+            gap: 8px;
+            margin-bottom: 24px;
         }
 
-        .expand-tag {
-            font-size: 10px;
-            font-family: 'JetBrains Mono', monospace;
-            color: rgba(255, 255, 255, 0.45);
-            padding: 3px 8px;
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+            padding: 6px 12px;
             background: rgba(255, 255, 255, 0.03);
-            border-radius: 4px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .feature-item::before {
+            content: '✓';
+            font-size: 10px;
+            color: #4ade80;
+        }
+
+        /* Tech Tags */
+        .project-card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .project-tag {
+            font-size: 11px;
+            font-family: 'JetBrains Mono', monospace;
+            color: rgba(255, 255, 255, 0.5);
+            padding: 6px 12px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 6px;
             text-transform: uppercase;
             letter-spacing: 0.05em;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.3s;
+        }
+
+        .project-tag:hover {
+            color: rgba(255, 255, 255, 0.8);
+            border-color: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        /* Category-specific card glows */
+        .category-software-dev .project-card {
+            --card-glow: rgba(59, 130, 246, 0.08);
+        }
+
+        .category-genai .project-card {
+            --card-glow: rgba(168, 85, 247, 0.08);
+        }
+
+        .category-networking .project-card {
+            --card-glow: rgba(34, 197, 94, 0.08);
+        }
+
+        .category-cloud .project-card {
+            --card-glow: rgba(249, 115, 22, 0.08);
+        }
+
+        .category-bigdata .project-card {
+            --card-glow: rgba(6, 182, 212, 0.08);
+        }
+
+        .category-devops .project-card {
+            --card-glow: rgba(239, 68, 68, 0.08);
+        }
+
+        .category-deeplearning .project-card {
+            --card-glow: rgba(236, 72, 153, 0.08);
+        }
+
+        .category-architecture .project-card {
+            --card-glow: rgba(234, 179, 8, 0.08);
         }
 
         @media (max-width: 768px) {
@@ -1111,8 +1434,31 @@
                 padding: 60px 24px 100px;
             }
 
-            .expandable-grid {
+            .projects-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .category-header {
+                flex-wrap: wrap;
+            }
+
+            .category-count {
+                width: 100%;
+                margin-left: 64px;
+                margin-top: -8px;
+            }
+
+            .project-card {
+                padding: 24px;
+            }
+
+            .project-card-features {
+                gap: 6px;
+            }
+
+            .feature-item {
+                font-size: 11px;
+                padding: 5px 10px;
             }
         }
 
@@ -1631,10 +1977,6 @@
                 gap: 24px;
             }
 
-            .hero-title .hero-char {
-                -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);
-            }
-
             .project-number {
                 font-size: 100px;
             }
@@ -1656,6 +1998,11 @@
         @media (max-width: 375px) {
             .hero-pre {
                 font-size: 12px;
+            }
+
+            .hero-name {
+                font-size: 24px;
+                margin-bottom: 12px;
             }
 
             .hero-sub {
@@ -1721,17 +2068,14 @@
             <div class="gradient-mesh"></div>
         </div>
         <div class="hero-content">
-            <p class="hero-pre"><span>MSCS @ University of San Francisco</span></p>
+            <h2 class="hero-name">Shreyas Suhas Yadav</h2>
             <h1 class="hero-title" id="hero-title">
                 <span class="line"><span class="word" data-text="Building">Building</span></span>
                 <span class="line"><span class="word" data-text="the Future">the Future</span></span>
             </h1>
-            <p class="hero-sub">AI infrastructure. Container security. Developer tools.</p>
+
         </div>
-        <div class="scroll-hint">
-            <span>Scroll to explore</span>
-            <div class="scroll-arrow"></div>
-        </div>
+
     </section>
 
     <!-- Project 1: Live-Caster -->
@@ -1850,75 +2194,438 @@
         </div>
     </section>
 
-    <!-- More Projects - Expandable Grid -->
+    <!-- More Projects - Expandable Categories -->
     <section class="more-projects-section">
-        <button class="expand-trigger" id="expandTrigger">
-            <span>View More Projects</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M6 9l6 6 6-6" />
-            </svg>
-        </button>
-        <div class="expandable-grid" id="expandableGrid">
-            <div class="expand-card">
-                <div class="expand-card-row">
-                    <span class="expand-card-icon">📊</span>
-                    <svg class="expand-card-link" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2">
-                        <path d="M7 17L17 7M17 7H7M17 7V17" />
-                    </svg>
+        <div class="filter-container">
+            <button class="filter-btn active" data-filter="all">All Projects</button>
+            <button class="filter-btn" data-filter="software-dev">Software Dev</button>
+            <button class="filter-btn" data-filter="architecture">Architecture</button>
+            <button class="filter-btn" data-filter="genai">GenAI</button>
+            <button class="filter-btn" data-filter="bigdata">Big Data</button>
+            <button class="filter-btn" data-filter="cloud">Cloud</button>
+            <button class="filter-btn" data-filter="networking">Networking</button>
+        </div>
+        <div class="projects-container" id="projectsContainer">
+
+            <!-- Software Development Category -->
+            <div class="category-section category-software-dev">
+                <div class="category-header">
+                    <div class="category-icon">💻</div>
+                    <h3 class="category-title">Software Development</h3>
+                    <span class="category-count">2 projects</span>
                 </div>
-                <h3 class="expand-card-title">Project Name</h3>
-                <p class="expand-card-desc">Brief description of what this project does and the problem it solves.</p>
-                <div class="expand-card-tags">
-                    <span class="expand-tag">Python</span>
-                    <span class="expand-tag">FastAPI</span>
+                <div class="projects-grid">
+                    <!-- Social Network App -->
+                    <div class="project-card">
+                        <div class="project-card-header">
+                            <div class="project-card-icon">👥</div>
+                            <a href="#" class="project-card-link">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M7 17L17 7M17 7H7M17 7V17" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="project-card-content">
+                            <h4 class="project-card-title">Social Network Desktop App</h4>
+                            <p class="project-card-desc">
+                                Desktop application simulating a social network with interactive GUI.
+                                Implements Observer and Factory Method design patterns for real-time
+                                notifications and dynamic user profile creation.
+                            </p>
+                            <div class="project-card-features">
+                                <span class="feature-item">Observer Pattern</span>
+                                <span class="feature-item">Factory Method</span>
+                                <span class="feature-item">Interactive GUI</span>
+                                <span class="feature-item">JSON Persistence</span>
+                            </div>
+                            <div class="project-card-tags">
+                                <span class="project-tag">Java</span>
+                                <span class="project-tag">Swing</span>
+                                <span class="project-tag">JUnit</span>
+                                <span class="project-tag">Design Patterns</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hotel Reviews Management System -->
+                    <div class="project-card">
+                        <div class="project-card-header">
+                            <div class="project-card-icon">🏨</div>
+                            <a href="#" class="project-card-link">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M7 17L17 7M17 7H7M17 7V17" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="project-card-content">
+                            <h4 class="project-card-title">Hotel Reviews Management System</h4>
+                            <p class="project-card-desc">
+                                Full-stack web application for hotel review management with secure authentication,
+                                bookmarking, interactive MapBox integration, and RESTful APIs. Features SHA-256
+                                password hashing and session-based security.
+                            </p>
+                            <div class="project-card-features">
+                                <span class="feature-item">User Authentication</span>
+                                <span class="feature-item">CRUD Operations</span>
+                                <span class="feature-item">MapBox Integration</span>
+                                <span class="feature-item">Responsive Design</span>
+                            </div>
+                            <div class="project-card-tags">
+                                <span class="project-tag">Java 17</span>
+                                <span class="project-tag">MySQL</span>
+                                <span class="project-tag">Jetty</span>
+                                <span class="project-tag">Velocity</span>
+                                <span class="project-tag">Bootstrap</span>
+                                <span class="project-tag">REST API</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="expand-card">
-                <div class="expand-card-row">
-                    <span class="expand-card-icon">🔗</span>
-                    <svg class="expand-card-link" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2">
-                        <path d="M7 17L17 7M17 7H7M17 7V17" />
-                    </svg>
+
+            <!-- Computer Architecture Category -->
+            <div class="category-section category-architecture">
+                <div class="category-header">
+                    <div class="category-icon">⚙️</div>
+                    <h3 class="category-title">Computer Architecture</h3>
+                    <span class="category-count">2 projects</span>
                 </div>
-                <h3 class="expand-card-title">Project Name</h3>
-                <p class="expand-card-desc">Brief description of what this project does and the problem it solves.</p>
-                <div class="expand-card-tags">
-                    <span class="expand-tag">TypeScript</span>
-                    <span class="expand-tag">React</span>
+                <div class="projects-grid">
+                    <!-- Single-Cycle Processor -->
+                    <div class="project-card">
+                        <div class="project-card-header">
+                            <div class="project-card-icon">💾</div>
+                            <a href="#" class="project-card-link">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M7 17L17 7M17 7H7M17 7V17" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="project-card-content">
+                            <h4 class="project-card-title">Single-Cycle RISC-V Processor</h4>
+                            <p class="project-card-desc">
+                                Implementation of a complete single-cycle RISC-V processor using Digital logic
+                                simulator.
+                                Features full instruction support including ALU operations, memory access (Load/Store),
+                                and branch handling with a comprehensive instruction decoder.
+                            </p>
+                            <div class="project-card-features">
+                                <span class="feature-item">ALU Design</span>
+                                <span class="feature-item">Instruction Decoder</span>
+                                <span class="feature-item">Register File</span>
+                                <span class="feature-item">Memory Control</span>
+                            </div>
+                            <div class="project-card-tags">
+                                <span class="project-tag">RISC-V</span>
+                                <span class="project-tag">Digital Logic</span>
+                                <span class="project-tag">Assembly</span>
+                                <span class="project-tag">Circuit Design</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pipelined Processor -->
+                    <div class="project-card">
+                        <div class="project-card-header">
+                            <div class="project-card-icon">⚡</div>
+                            <a href="#" class="project-card-link">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M7 17L17 7M17 7H7M17 7V17" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="project-card-content">
+                            <h4 class="project-card-title">Pipelined RISC-V Processor</h4>
+                            <p class="project-card-desc">
+                                Advanced 5-stage pipelined processor implementation featuring hazard detection and
+                                forwarding units. Optimizes instruction throughput with structural, data, and
+                                control hazard resolution (stalling/flushing).
+                            </p>
+                            <div class="project-card-features">
+                                <span class="feature-item">5-Stage Pipeline</span>
+                                <span class="feature-item">Hazard Detection</span>
+                                <span class="feature-item">Data Forwarding</span>
+                                <span class="feature-item">Branch Prediction</span>
+                            </div>
+                            <div class="project-card-tags">
+                                <span class="project-tag">RISC-V</span>
+                                <span class="project-tag">Pipeline Arch</span>
+                                <span class="project-tag">Hazard Unit</span>
+                                <span class="project-tag">Digital Sim</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="expand-card">
-                <div class="expand-card-row">
-                    <span class="expand-card-icon">⚡</span>
-                    <svg class="expand-card-link" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2">
-                        <path d="M7 17L17 7M17 7H7M17 7V17" />
-                    </svg>
+
+            <!-- GenAI Category -->
+            <div class="category-section category-genai">
+                <div class="category-header">
+                    <div class="category-icon">✨</div>
+                    <h3 class="category-title">GenAI</h3>
+                    <span class="category-count">2 projects</span>
                 </div>
-                <h3 class="expand-card-title">Project Name</h3>
-                <p class="expand-card-desc">Brief description of what this project does and the problem it solves.</p>
-                <div class="expand-card-tags">
-                    <span class="expand-tag">Go</span>
-                    <span class="expand-tag">Docker</span>
+                <div class="projects-grid">
+                    <!-- AgentBench -->
+                    <div class="project-card">
+                        <div class="project-card-header">
+                            <div class="project-card-icon">🤖</div>
+                            <a href="#" class="project-card-link">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M7 17L17 7M17 7H7M17 7V17" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="project-card-content">
+                            <h4 class="project-card-title">AgentBench Framework</h4>
+                            <p class="project-card-desc">
+                                Comprehensive evaluation framework for GitHub agents using LlamaIndex and Arize Phoenix.
+                                Automated assessment of agent reasoning, tool selection, and execution efficiency
+                                across single and multi-agent architectures.
+                            </p>
+                            <div class="project-card-features">
+                                <span class="feature-item">Multi-Agent Eval</span>
+                                <span class="feature-item">Phoenix Telemetry</span>
+                                <span class="feature-item">ReAct Analysis</span>
+                                <span class="feature-item">Sequence Optimality</span>
+                            </div>
+                            <div class="project-card-tags">
+                                <span class="project-tag">LlamaIndex</span>
+                                <span class="project-tag">Python</span>
+                                <span class="project-tag">GPT-4o</span>
+                                <span class="project-tag">Arize Phoenix</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Code RAG Assistant -->
+                    <div class="project-card">
+                        <div class="project-card-header">
+                            <div class="project-card-icon">🧠</div>
+                            <a href="#" class="project-card-link">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M7 17L17 7M17 7H7M17 7V17" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="project-card-content">
+                            <h4 class="project-card-title">Code RAG Assistant</h4>
+                            <p class="project-card-desc">
+                                Advanced RAG system for codebases using ChromaDB and Voyage AI embeddings.
+                                Features AST-based code chunking, semantic retrieval, and entity-based filtering
+                                to help developers navigate complex code repositories.
+                            </p>
+                            <div class="project-card-features">
+                                <span class="feature-item">AST Chunking</span>
+                                <span class="feature-item">Semantic Search</span>
+                                <span class="feature-item">Entity Filtering</span>
+                                <span class="feature-item">ChromaDB</span>
+                            </div>
+                            <div class="project-card-tags">
+                                <span class="project-tag">LlamaIndex</span>
+                                <span class="project-tag">Voyage AI</span>
+                                <span class="project-tag">Tree-sitter</span>
+                                <span class="project-tag">Python</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="expand-card">
-                <div class="expand-card-row">
-                    <span class="expand-card-icon">🧠</span>
-                    <svg class="expand-card-link" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2">
-                        <path d="M7 17L17 7M17 7H7M17 7V17" />
-                    </svg>
+
+            <!-- Big Data Category -->
+            <div class="category-section category-bigdata">
+                <div class="category-header">
+                    <div class="category-icon">📊</div>
+                    <h3 class="category-title">Big Data</h3>
+                    <span class="category-count">1 project</span>
                 </div>
-                <h3 class="expand-card-title">Project Name</h3>
-                <p class="expand-card-desc">Brief description of what this project does and the problem it solves.</p>
-                <div class="expand-card-tags">
-                    <span class="expand-tag">PyTorch</span>
-                    <span class="expand-tag">Transformers</span>
+                <div class="projects-grid">
+                    <!-- GoLog Analyzer -->
+                    <div class="project-card">
+                        <div class="project-card-header">
+                            <div class="project-card-icon">📈</div>
+                            <a href="#" class="project-card-link">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M7 17L17 7M17 7H7M17 7V17" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="project-card-content">
+                            <h4 class="project-card-title">GoLog Analyzer</h4>
+                            <p class="project-card-desc">
+                                High-performance log analysis tool optimized for processing large-scale web server logs.
+                                Built with Go for parallel processing efficiency, it parses TSV datasets to identify
+                                crawler patterns, top domains, and traffic anomalies with minimal latency.
+                            </p>
+                            <div class="project-card-features">
+                                <span class="feature-item">Log Processing</span>
+                                <span class="feature-item">Statistical Analysis</span>
+                                <span class="feature-item">Performance Optimized</span>
+                                <span class="feature-item">Data Aggregation</span>
+                            </div>
+                            <div class="project-card-tags">
+                                <span class="project-tag">Go (Golang)</span>
+                                <span class="project-tag">Data Pipelines</span>
+                                <span class="project-tag">Log Analysis</span>
+                                <span class="project-tag">Concurrency</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <!-- Cloud Computing Category -->
+            <div class="category-section category-cloud">
+                <div class="category-header">
+                    <div class="category-icon">☁️</div>
+                    <h3 class="category-title">Cloud Computing</h3>
+                    <span class="category-count">2 projects</span>
+                </div>
+                <div class="projects-grid">
+                    <!-- Weather App -->
+                    <div class="project-card">
+                        <div class="project-card-header">
+                            <div class="project-card-icon">🌤️</div>
+                            <a href="#" class="project-card-link">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M7 17L17 7M17 7H7M17 7V17" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="project-card-content">
+                            <h4 class="project-card-title">Microservices Weather App</h4>
+                            <p class="project-card-desc">
+                                Containerized weather application built with a microservices architecture.
+                                Features a Node.js backend and Nginx frontend, deployed on AWS using Docker
+                                for isolation and scalability. Integrated with OpenWeatherMap API for real-time data.
+                            </p>
+                            <div class="project-card-features">
+                                <span class="feature-item">Docker Containers</span>
+                                <span class="feature-item">AWS Deployment</span>
+                                <span class="feature-item">Nginx Reverse Proxy</span>
+                                <span class="feature-item">Microservices</span>
+                            </div>
+                            <div class="project-card-tags">
+                                <span class="project-tag">AWS</span>
+                                <span class="project-tag">Docker</span>
+                                <span class="project-tag">Node.js</span>
+                                <span class="project-tag">Express</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- YT Analyzer -->
+                    <div class="project-card">
+                        <div class="project-card-header">
+                            <div class="project-card-icon">📺</div>
+                            <a href="#" class="project-card-link">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M7 17L17 7M17 7H7M17 7V17" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="project-card-content">
+                            <h4 class="project-card-title">Serverless Video Analyzer</h4>
+                            <p class="project-card-desc">
+                                Cloud-native architecture for AI video analysis. Leverages AWS Lambda for serverless
+                                APIs,
+                                SQS for event-driven processing, and GPU-optimized EC2 instances for Whisper AI
+                                transcription.
+                                Securely deployed in a VPC with Cognito authentication.
+                            </p>
+                            <div class="project-card-features">
+                                <span class="feature-item">Serverless (Lambda)</span>
+                                <span class="feature-item">Event-Driven (SQS)</span>
+                                <span class="feature-item">GPU Computing</span>
+                                <span class="feature-item">Whisper AI</span>
+                            </div>
+                            <div class="project-card-tags">
+                                <span class="project-tag">AWS Lambda</span>
+                                <span class="project-tag">FastAPI</span>
+                                <span class="project-tag">React</span>
+                                <span class="project-tag">Cognito</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Computer Networking Category -->
+            <div class="category-section category-networking">
+                <div class="category-header">
+                    <div class="category-icon">🌐</div>
+                    <h3 class="category-title">Computer Networking</h3>
+                    <span class="category-count">2 projects</span>
+                </div>
+                <div class="projects-grid">
+                    <!-- Compression Detection -->
+                    <div class="project-card">
+                        <div class="project-card-header">
+                            <div class="project-card-icon">📊</div>
+                            <a href="#" class="project-card-link">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M7 17L17 7M17 7H7M17 7V17" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="project-card-content">
+                            <h4 class="project-card-title">Link Compression Detector</h4>
+                            <p class="project-card-desc">
+                                Client-server tool for detecting network link compression by analyzing packet train
+                                inter-arrival times. Generates high/low entropy UDP payloads to differentiate
+                                behaviors and identifies compression algorithms using statistical timing analysis.
+                            </p>
+                            <div class="project-card-features">
+                                <span class="feature-item">Packet Train Probing</span>
+                                <span class="feature-item">Entropy Generation</span>
+                                <span class="feature-item">Timing Analysis</span>
+                                <span class="feature-item">JSON Config</span>
+                            </div>
+                            <div class="project-card-tags">
+                                <span class="project-tag">C Language</span>
+                                <span class="project-tag">Socket Prog</span>
+                                <span class="project-tag">Multi-threading</span>
+                                <span class="project-tag">UDP/TCP</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- QoS Simulation -->
+                    <div class="project-card">
+                        <div class="project-card-header">
+                            <div class="project-card-icon">📡</div>
+                            <a href="#" class="project-card-link">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M7 17L17 7M17 7H7M17 7V17" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="project-card-content">
+                            <h4 class="project-card-title">NS-3 QoS Simulation</h4>
+                            <p class="project-card-desc">
+                                Network simulation framework implementing Strict Priority Queuing (SPQ) and
+                                Deficit Round Robin (DRR) scheduling algorithms using NS-3. Features custom
+                                traffic classification filters and comprehensive PCAP analysis for QoS validation.
+                            </p>
+                            <div class="project-card-features">
+                                <span class="feature-item">Traffic Scheduling</span>
+                                <span class="feature-item">Strict Priority (SPQ)</span>
+                                <span class="feature-item">Deficit RR (DRR)</span>
+                                <span class="feature-item">Wireshark Analysis</span>
+                            </div>
+                            <div class="project-card-tags">
+                                <span class="project-tag">C++</span>
+                                <span class="project-tag">NS-3</span>
+                                <span class="project-tag">Network Sim</span>
+                                <span class="project-tag">Packet Filter</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Placeholder for other categories - will be added as user provides projects -->
+
         </div>
     </section>
 
@@ -2016,7 +2723,7 @@
 
     <!-- Footer -->
     <footer>
-        <p class="footer-text">Designed & built by Shreyas Suhas Yadav</p>
+
     </footer>
 
     <script>
@@ -2110,15 +2817,47 @@
             });
         });
 
-        // Split hero title into individual characters
+        // Split hero name into individual characters with liquid fill animation
+        const heroName = document.querySelector('.hero-name');
+        if (heroName) {
+            const nameText = heroName.textContent;
+            heroName.innerHTML = '';
+            nameText.split('').forEach((char, i) => {
+                const span = document.createElement('span');
+                span.className = 'name-char';
+                span.textContent = char === ' ' ? '\u00A0' : char;
+                span.setAttribute('data-char', char === ' ' ? '\u00A0' : char);
+                span.style.setProperty('--name-char-index', i);
+                heroName.appendChild(span);
+
+                // Add "filled" class after animation completes for hover effects
+                const animationDelay = 800 + (i * 50) + 1500; // reveal delay + charDelay + fillDuration
+                setTimeout(() => {
+                    span.classList.add('filled');
+                }, animationDelay);
+            });
+        }
+
+        // Split hero title into individual characters with liquid fill animation
+        let globalCharIndex = 0;
         document.querySelectorAll('.hero-title .word').forEach(word => {
             const text = word.textContent;
             word.innerHTML = '';
-            text.split('').forEach(char => {
+            text.split('').forEach((char, localIndex) => {
                 const span = document.createElement('span');
                 span.className = 'hero-char';
                 span.textContent = char === ' ' ? '\u00A0' : char;
+                span.setAttribute('data-char', char === ' ' ? '\u00A0' : char);
+                span.style.setProperty('--char-index', globalCharIndex);
                 word.appendChild(span);
+
+                // Add "filled" class after animation completes for hover effects
+                const animationDelay = 1500 + (globalCharIndex * 80) + 2000; // baseDelay + charDelay + animDuration
+                setTimeout(() => {
+                    span.classList.add('filled');
+                }, animationDelay);
+
+                globalCharIndex++;
             });
         });
 
@@ -2222,24 +2961,39 @@
         });
 
         // Expandable projects grid
-        const expandTrigger = document.getElementById('expandTrigger');
-        const expandableGrid = document.getElementById('expandableGrid');
+        // Category Filtering
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const categorySections = document.querySelectorAll('.category-section');
 
-        expandTrigger.addEventListener('click', () => {
-            expandTrigger.classList.toggle('expanded');
-            expandableGrid.classList.toggle('visible');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active state
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
 
-            // Update button text
-            const span = expandTrigger.querySelector('span');
-            if (expandableGrid.classList.contains('visible')) {
-                span.textContent = 'Show Less';
-            } else {
-                span.textContent = 'View More Projects';
-            }
+                const filter = btn.dataset.filter;
+
+                categorySections.forEach(section => {
+                    // Reset animation
+                    section.style.animation = 'none';
+                    section.offsetHeight; /* trigger reflow */
+                    section.style.animation = null;
+
+                    if (filter === 'all') {
+                        section.style.display = 'block';
+                    } else {
+                        if (section.classList.contains(`category-${filter}`)) {
+                            section.style.display = 'block';
+                        } else {
+                            section.style.display = 'none';
+                        }
+                    }
+                });
+            });
         });
 
-        // Add hover effect for expand cards
-        document.querySelectorAll('.expand-card').forEach(el => {
+        // Add hover effect for project cards
+        document.querySelectorAll('.project-card').forEach(el => {
             el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
             el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
         });
