@@ -31,6 +31,16 @@ export function Navigation() {
         setIsMobileMenuOpen(false);
     }, []);
 
+    const handleSmoothScroll = (e, href) => {
+        e.preventDefault();
+        const targetId = href.substring(1);
+        const element = document.getElementById(targetId);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+            if (isMobileMenuOpen) setIsMobileMenuOpen(false);
+        }
+    };
+
     const navLinks = [
         { href: '#work', label: 'Work' },
         { href: '#about', label: 'About' },
@@ -44,7 +54,14 @@ export function Navigation() {
                     {/* Animated border glow */}
                     <div className={styles.borderGlow} />
 
-                    <div className={styles.navLogo}>Shreyas Yadav</div>
+                    <div
+                        className={styles.navLogo}
+                        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                        style={{ cursor: 'pointer' }}
+                        {...cursorHoverProps}
+                    >
+                        Shreyas Yadav
+                    </div>
                     <div className={styles.navDivider} />
                     <ul className={styles.navLinks}>
                         {navLinks.map((link, index) => (
@@ -54,6 +71,7 @@ export function Navigation() {
                             >
                                 <a
                                     href={link.href}
+                                    onClick={(e) => handleSmoothScroll(e, link.href)}
                                     {...cursorHoverProps}
                                 >
                                     {link.label}
@@ -83,7 +101,7 @@ export function Navigation() {
                             href={link.href}
                             className={styles.mobileLink}
                             style={{ '--delay': `${0.1 * (index + 1)}s` }}
-                            onClick={closeMobileMenu}
+                            onClick={(e) => handleSmoothScroll(e, link.href)}
                         >
                             {link.label}
                         </a>
