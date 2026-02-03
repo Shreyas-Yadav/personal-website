@@ -7,6 +7,12 @@ export function Hero() {
     const heroTitleRef = useRef(null);
     const [titleVisible, setTitleVisible] = useState(false);
     const [filledChars, setFilledChars] = useState(new Set());
+    const [time, setTime] = useState(new Date());
+
+    useEffect(() => {
+        const timer = setInterval(() => setTime(new Date()), 1000);
+        return () => clearInterval(timer);
+    }, []);
 
     const { isIntersecting } = useIntersectionObserver(heroTitleRef, {
         threshold: 0.3,
@@ -89,6 +95,23 @@ export function Hero() {
         <section className={styles.hero}>
             <div className={styles.heroBg}>
                 <div className={styles.gradientMesh} />
+            </div>
+
+            <div className={styles.dateTime}>
+                <div className={styles.time}>
+                    {time.toLocaleTimeString('en-US', {
+                        hour: 'numeric',
+                        minute: '2-digit',
+                        hour12: true
+                    })}
+                </div>
+                <div className={styles.date}>
+                    {time.toLocaleDateString('en-US', {
+                        weekday: 'short',
+                        month: 'short',
+                        day: 'numeric'
+                    })}
+                </div>
             </div>
             <div className={styles.heroContent}>
                 <h2 className={styles.heroName}>

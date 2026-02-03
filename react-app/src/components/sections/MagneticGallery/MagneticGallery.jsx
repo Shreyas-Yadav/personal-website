@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { galleryProjects } from '../../../data/projects';
 import { useCursorHover } from '../../../context/CursorContext';
 import { ProjectsToggle } from '../ProjectsToggle';
@@ -96,7 +96,46 @@ function getIcon(name) {
     return icons[name] || null;
 }
 
-function ProjectCard({ project, categoryFilter }) {
+function ProjectModal({ project, onClose }) {
+    if (!project) return null;
+
+    useEffect(() => {
+        const handleEsc = (e) => {
+            if (e.key === 'Escape') onClose();
+        };
+        window.addEventListener('keydown', handleEsc);
+        document.body.style.overflow = 'hidden';
+        return () => {
+            window.removeEventListener('keydown', handleEsc);
+            document.body.style.overflow = '';
+        };
+    }, [onClose]);
+
+    return (
+        <div className={styles.modalOverlay} onClick={onClose}>
+            <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
+                <button className={styles.modalClose} onClick={onClose}>
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+                <div className={styles.modalIcon}>
+                    {getIcon(project.icon)}
+                </div>
+                <h3 className={styles.modalTitle}>{project.title}</h3>
+                <p className={styles.modalDesc}>{project.description}</p>
+                <div className={styles.modalTags}>
+                    {project.tags.map(tag => (
+                        <span key={tag} className={styles.modalTag}>{tag}</span>
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
+}
+
+function ProjectCard({ project, categoryFilter, onSelect }) {
     const cursorHoverProps = useCursorHover();
 
     const isVisible = categoryFilter === 'all' ||
@@ -109,11 +148,15 @@ function ProjectCard({ project, categoryFilter }) {
         >
             <div className={styles.cardHeader}>
                 <div className={styles.cardIcon}>{getIcon(project.icon)}</div>
-                <a href={project.link} className={styles.cardLink}>
+                <button
+                    className={styles.cardLink}
+                    onClick={() => onSelect(project)}
+                    aria-label="View Details"
+                >
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <path d="M7 17L17 7M17 7H7M17 7V17" />
                     </svg>
-                </a>
+                </button>
             </div>
             <div className={styles.cardContent}>
                 <h4 className={styles.cardTitle}>{project.title}</h4>
@@ -131,6 +174,7 @@ function ProjectCard({ project, categoryFilter }) {
 export function MagneticGallery() {
     const [isExpanded, setIsExpanded] = useState(false);
     const [activeCategory, setActiveCategory] = useState('all');
+    const [selectedProject, setSelectedProject] = useState(null);
 
     const handleToggle = useCallback(() => {
         setIsExpanded(prev => !prev);
@@ -155,10 +199,18 @@ export function MagneticGallery() {
                             key={project.id}
                             project={project}
                             categoryFilter={activeCategory}
+                            onSelect={setSelectedProject}
                         />
                     ))}
                 </div>
             </section>
+
+            {selectedProject && (
+                <ProjectModal
+                    project={selectedProject}
+                    onClose={() => setSelectedProject(null)}
+                />
+            )}
         </>
     );
 }
