@@ -38,7 +38,7 @@ export const featuredProjects = [
 export const galleryProjects = [
     {
         id: 'social-network',
-        icon: '👥',
+        icon: 'users',
         title: 'Social Network Desktop App',
         description: 'Desktop application simulating a social network with interactive GUI. Implements Observer and Factory Method design patterns for real-time notifications.',
         tags: ['Java', 'Swing', 'Design Patterns'],
@@ -47,7 +47,7 @@ export const galleryProjects = [
     },
     {
         id: 'hotel-reviews',
-        icon: '🏨',
+        icon: 'building',
         title: 'Hotel Reviews System',
         description: 'Full-stack web application for hotel review management with secure authentication, MapBox integration, and RESTful APIs.',
         tags: ['Java 17', 'MySQL', 'REST API'],
@@ -56,7 +56,7 @@ export const galleryProjects = [
     },
     {
         id: 'risc-v-single',
-        icon: '💾',
+        icon: 'cpu',
         title: 'Single-Cycle RISC-V Processor',
         description: 'Complete single-cycle RISC-V processor implementation with ALU operations, memory access, and comprehensive instruction decoder.',
         tags: ['RISC-V', 'Digital Logic', 'Assembly'],
@@ -65,7 +65,7 @@ export const galleryProjects = [
     },
     {
         id: 'risc-v-pipeline',
-        icon: '⚡',
+        icon: 'activity',
         title: 'Pipelined RISC-V Processor',
         description: 'Advanced 5-stage pipelined processor with hazard detection and forwarding units. Optimizes instruction throughput with hazard resolution.',
         tags: ['RISC-V', 'Pipeline', 'Hazard Unit'],
@@ -74,7 +74,7 @@ export const galleryProjects = [
     },
     {
         id: 'agent-bench',
-        icon: '🤖',
+        icon: 'bot',
         title: 'AgentBench Framework',
         description: 'Evaluation framework for AI agents using LlamaIndex and Arize Phoenix. Automated assessment of reasoning, tool selection, and execution efficiency.',
         tags: ['LlamaIndex', 'Python', 'GPT-4o'],
@@ -83,7 +83,7 @@ export const galleryProjects = [
     },
     {
         id: 'code-rag',
-        icon: '🧠',
+        icon: 'code',
         title: 'Code RAG Assistant',
         description: 'Advanced RAG system for codebases using ChromaDB and Voyage AI embeddings. Features AST-based code chunking and semantic retrieval.',
         tags: ['LlamaIndex', 'Voyage AI', 'Tree-sitter'],
@@ -92,7 +92,7 @@ export const galleryProjects = [
     },
     {
         id: 'golog-analyzer',
-        icon: '📈',
+        icon: 'bar-chart',
         title: 'GoLog Analyzer',
         description: 'High-performance log analysis tool optimized for processing large-scale web server logs. Built with Go for parallel processing efficiency.',
         tags: ['Go', 'Concurrency', 'Data Pipelines'],
@@ -101,7 +101,7 @@ export const galleryProjects = [
     },
     {
         id: 'weather-app',
-        icon: '🌤️',
+        icon: 'cloud',
         title: 'Microservices Weather App',
         description: 'Containerized weather application with Node.js backend and Nginx frontend, deployed on AWS using Docker for scalability.',
         tags: ['AWS', 'Docker', 'Node.js'],
@@ -110,7 +110,7 @@ export const galleryProjects = [
     },
     {
         id: 'video-analyzer',
-        icon: '📺',
+        icon: 'video',
         title: 'Serverless Video Analyzer',
         description: 'Cloud-native architecture for AI video analysis with AWS Lambda, SQS event processing, and Whisper AI transcription.',
         tags: ['AWS Lambda', 'FastAPI', 'Whisper AI'],
@@ -119,7 +119,7 @@ export const galleryProjects = [
     },
     {
         id: 'compression-detector',
-        icon: '📊',
+        icon: 'zap',
         title: 'Link Compression Detector',
         description: 'Client-server tool for detecting network link compression by analyzing packet train inter-arrival times with entropy analysis.',
         tags: ['C', 'Sockets', 'UDP/TCP'],
@@ -128,7 +128,7 @@ export const galleryProjects = [
     },
     {
         id: 'ns3-simulation',
-        icon: '📡',
+        icon: 'wifi',
         title: 'NS-3 QoS Simulation',
         description: 'Network simulation implementing SPQ and DRR scheduling algorithms with traffic classification and PCAP analysis.',
         tags: ['C++', 'NS-3', 'Network Sim'],

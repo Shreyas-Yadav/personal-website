@@ -10,7 +10,7 @@
 .gallery.expanded {
     max-height: 3000px;
     opacity: 1;
-    padding: 0 20px 80px;
+    padding: 60px 20px 80px;
 }
 
 .grid {
@@ -48,7 +48,17 @@
 }
 
 .cardIcon {
-    font-size: 32px;
+    width: 40px;
+    height: 40px;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cardIcon svg {
+    width: 32px;
+    height: 32px;
 }
 
 .cardLink {
