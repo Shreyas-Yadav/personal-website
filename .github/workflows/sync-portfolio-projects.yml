@@ -1,0 +1,46 @@
+name: Sync Portfolio Projects
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 7 * * *'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        working-directory: react-app
+        run: npm ci
+
+      - name: Sync GitHub portfolio repos
+        working-directory: react-app
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/sync-github-projects.mjs --summary-file .cache/portfolio-sync-summary.json --body-file .cache/portfolio-sync-pr-body.md
+
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: chore/sync-portfolio-projects
+          delete-branch: true
+          title: chore: sync portfolio projects
+          commit-message: chore: sync portfolio projects
+          body-path: react-app/.cache/portfolio-sync-pr-body.md
+          add-paths: |
+            react-app/src/data/githubProjects.generated.json
+            react-app/src/data/projectOverrides.json

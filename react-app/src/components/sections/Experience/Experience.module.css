@@ -1,137 +1,142 @@
-/* Experience Section */
-.experienceScene {
-    padding: 120px 0;
-    position: relative;
+.scene {
+    padding: 80px 0 120px;
     max-width: 1000px;
     margin: 0 auto;
 }
 
-.title {
-    font-size: 12px;
+.sectionTitle {
+    font-size: 16px;
     font-weight: 600;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--dim);
-    margin-bottom: 60px;
+    margin-bottom: 48px;
     text-align: center;
 }
 
-.timeline {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    padding: 0 20px;
+.list {
+    list-style: none;
+    padding: 0;
+    margin: 0 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-/* Vertical Line */
-.timeline::before {
-    content: '';
-    position: absolute;
-    left: 20px;
-    top: 20px;
-    bottom: 20px;
-    width: 1px;
-    background: linear-gradient(to bottom,
-            transparent,
-            rgba(255, 255, 255, 0.1) 10%,
-            rgba(255, 255, 255, 0.1) 90%,
-            transparent);
+/* Row */
+.row {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    cursor: default;
+    transition: background 0.3s ease;
 }
 
-.card {
-    position: relative;
-    padding: 30px 40px;
-    margin-left: 40px;
+.row.expanded {
     background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 16px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.card:hover {
-    background: rgba(255, 255, 255, 0.04);
-    border-color: rgba(255, 255, 255, 0.1);
-    transform: translateX(5px);
+/* Collapsed summary line */
+.summary {
+    display: grid;
+    grid-template-columns: 40px 1fr auto;
+    align-items: center;
+    gap: 24px;
+    padding: 40px 28px;
+    transition: padding 0.3s ease;
 }
 
-/* Timeline Dot */
-.card::before {
-    content: '';
-    position: absolute;
-    left: -46.5px;
-    /* Aligns with timeline line */
-    top: 30px;
-    width: 11px;
-    height: 11px;
-    background: var(--bg);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    transition: all 0.3s ease;
-    z-index: 1;
+.row.expanded .summary {
+    padding-bottom: 12px;
 }
 
-.card:hover::before {
-    border-color: var(--accent);
-    background: var(--accent);
-    box-shadow: 0 0 15px var(--accent);
+.number {
+    font-size: 13px;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--dim);
+    opacity: 0.45;
+    flex-shrink: 0;
 }
 
-/* Card Content */
-.header {
+.titleWrap {
     display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 8px;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.role {
-    font-size: 20px;
+    align-items: center;
+    gap: 12px;
+    font-size: 24px;
     font-weight: 700;
     color: var(--text);
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em;
+    transition: color 0.2s ease;
 }
 
-.period {
-    font-size: 14px;
-    color: var(--dim);
+.row:hover .titleWrap,
+.row.expanded .titleWrap {
+    color: #fff;
+}
+
+.currentBadge {
+    font-size: 10px;
     font-family: 'JetBrains Mono', monospace;
-}
-
-.subheader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 24px;
-    font-size: 14px;
-    color: var(--dim);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--green);
+    border: 1px solid var(--green);
+    border-radius: 4px;
+    padding: 2px 7px;
+    opacity: 0.85;
+    flex-shrink: 0;
 }
 
 .company {
-    color: rgba(255, 255, 255, 0.8);
-    font-weight: 500;
+    font-size: 13px;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--dim);
+    opacity: 0.6;
+    flex-shrink: 0;
+    transition: opacity 0.2s ease;
 }
 
-.location {
-    font-style: italic;
+.row.expanded .company {
+    opacity: 0;
+}
+
+/* Expandable detail */
+.expandWrap {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.row.expanded .expandWrap {
+    grid-template-rows: 1fr;
+}
+
+.expandInner {
+    overflow: hidden;
+    padding: 0 28px;
+}
+
+.row.expanded .expandInner {
+    padding-bottom: 28px;
+}
+
+.meta {
+    font-size: 13px;
+    color: var(--dim);
+    margin-bottom: 20px;
     opacity: 0.7;
 }
 
 .description {
     list-style: none;
-    margin: 0 0 24px 0;
     padding: 0;
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 15px;
-    line-height: 1.6;
+    margin: 0 0 24px 0;
 }
 
 .description li {
     position: relative;
-    padding-left: 16px;
-    margin-bottom: 8px;
+    padding-left: 18px;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--dim);
+    margin-bottom: 10px;
 }
 
 .description li::before {
@@ -149,53 +154,38 @@
 }
 
 .tag {
-    font-size: 11px;
-    padding: 4px 12px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    padding: 5px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 100px;
-    background: rgba(255, 255, 255, 0.05);
-    color: rgba(255, 255, 255, 0.6);
-    transition: all 0.3s ease;
-    border: 1px solid transparent;
+    color: var(--dim);
 }
 
-.card:hover .tag {
-    background: rgba(255, 255, 255, 0.08);
-    color: var(--text);
-}
-
-/* Interactive hover on tags */
-.tag:hover {
-    background: rgba(0, 170, 255, 0.15) !important;
-    color: var(--accent) !important;
-    border-color: rgba(0, 170, 255, 0.3);
-}
-
-/* Responsive */
 @media (max-width: 768px) {
-    .experienceScene {
-        padding: 80px 20px;
+    .scene {
+        padding: 60px 0 80px;
     }
 
-
-
-    .card {
-        margin-left: 20px;
-        padding: 24px;
+    .list {
+        margin: 0;
     }
 
-    .card::before {
-        left: -25px;
+    .summary {
+        padding: 22px 16px;
+        gap: 14px;
+        grid-template-columns: 32px 1fr auto;
     }
 
-    .header {
-        flex-direction: column;
-        gap: 4px;
+    .titleWrap {
+        font-size: 17px;
     }
 
-    .subheader {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 4px;
-        margin-bottom: 20px;
+    .expandInner {
+        padding: 0 16px;
+    }
+
+    .row.expanded .expandInner {
+        padding-bottom: 20px;
     }
 }

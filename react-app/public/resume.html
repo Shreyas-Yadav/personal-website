@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resume — Shreyas Yadav</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #000;
+            --text: #fff;
+            --dim: #888;
+            --accent: #0af;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 32px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            position: sticky;
+            top: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 10;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--dim);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .back-link:hover { color: var(--text); }
+
+        .back-link svg { flex-shrink: 0; }
+
+        .header-title {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--dim);
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 18px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--accent);
+            border: 1px solid rgba(0, 170, 255, 0.3);
+            border-radius: 100px;
+            background: rgba(0, 170, 255, 0.05);
+            text-decoration: none;
+            transition: all 0.25s ease;
+        }
+
+        .download-btn:hover {
+            background: rgba(0, 170, 255, 0.12);
+            border-color: rgba(0, 170, 255, 0.6);
+            box-shadow: 0 0 20px rgba(0, 170, 255, 0.15);
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 24px 32px 32px;
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .viewer-wrapper {
+            flex: 1;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        iframe {
+            display: block;
+            width: 100%;
+            height: calc(100dvh - 130px);
+            min-height: 600px;
+            border: none;
+        }
+
+        .mobile-fallback {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 60px 20px;
+            text-align: center;
+            color: var(--dim);
+            font-size: 15px;
+            height: 300px;
+        }
+
+        @media (max-width: 768px) {
+            header { padding: 16px 20px; }
+            .header-title { display: none; }
+            main { padding: 16px 20px 24px; }
+
+            iframe { display: none; }
+            .mobile-fallback { display: flex; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="/" class="back-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12" />
+                <polyline points="12 19 5 12 12 5" />
+            </svg>
+            Back
+        </a>
+        <span class="header-title">Resume</span>
+        <a href="/resume.pdf" download="Shreyas-Yadav-Resume.pdf" class="download-btn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+            Download
+        </a>
+    </header>
+
+    <main>
+        <div class="viewer-wrapper">
+            <iframe src="/resume.pdf#toolbar=0&navpanes=0&scrollbar=0" title="Shreyas Yadav Resume"></iframe>
+            <div class="mobile-fallback">
+                <p>PDF preview isn't available on this device.</p>
+                <a href="/resume.pdf" download="Shreyas-Yadav-Resume.pdf" class="download-btn">Download Resume</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

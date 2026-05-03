@@ -1,0 +1,17 @@
+{
+  "generatedAt": "2026-04-04T00:54:40.979Z",
+  "owner": "Shreyas-Yadav",
+  "topic": "portfolio",
+  "projects": [
+    {
+      "repoName": "vama-collections",
+      "repoUrl": "https://github.com/Shreyas-Yadav/vama-collections",
+      "description": "",
+      "topics": [
+        "portfolio"
+      ],
+      "language": "TypeScript",
+      "updatedAt": "2026-04-04T00:54:11Z"
+    }
+  ]
+}

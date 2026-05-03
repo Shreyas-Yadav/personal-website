@@ -1,9 +1,7 @@
-import { useState, useCallback } from 'react';
-import { categories } from '../../../data/projects';
 import { useCursorHover } from '../../../context/CursorContext';
 import styles from './ProjectsToggle.module.css';
 
-export function ProjectsToggle({ isExpanded, onToggle, activeCategory, onCategoryChange }) {
+export function ProjectsToggle({ isExpanded, onToggle }) {
     const cursorHoverProps = useCursorHover();
 
     return (
@@ -13,9 +11,7 @@ export function ProjectsToggle({ isExpanded, onToggle, activeCategory, onCategor
                 onClick={onToggle}
                 {...cursorHoverProps}
             >
-                {/* Animated border glow */}
                 <div className={`${styles.borderGlow} ${isExpanded ? styles.expandedBorder : ''}`} />
-
                 <div className={styles.toggleContent}>
                     <span className={styles.toggleText}>
                         {isExpanded ? 'Show Less' : 'Show More Projects'}
@@ -25,20 +21,6 @@ export function ProjectsToggle({ isExpanded, onToggle, activeCategory, onCategor
                             <polyline points="6 9 12 15 18 9" />
                         </svg>
                     </span>
-                </div>
-                <div className={`${styles.categoryPills} ${isExpanded ? styles.visible : ''}`}>
-                    {categories.map(category => (
-                        <span
-                            key={category.id}
-                            className={`${styles.categoryPill} ${activeCategory === category.id ? styles.active : ''}`}
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                onCategoryChange(category.id);
-                            }}
-                        >
-                            {category.label}
-                        </span>
-                    ))}
                 </div>
             </button>
         </div>

@@ -1,21 +1,36 @@
 export const skills = [
-    { name: 'Python', color: '#3776AB' },
-    { name: 'Java', color: '#ED8B00' },
-    { name: 'Go', color: '#00ADD8' },
-    { name: 'C++', color: '#044F88' },
-    { name: 'Docker', color: '#0DB7ED' },
-    { name: 'AWS', color: '#FF9900' },
-    { name: 'FastAPI', color: '#009688' },
-    { name: 'Node.js', color: '#3C873A' },
-    { name: 'MySQL', color: '#00758F' },
-    { name: 'LlamaIndex', color: '#A855F7' },
-    { name: 'LangChain', color: '#2DD4BF' },
-    { name: 'OpenAI', color: '#00A67E' },
-    { name: 'Claude', color: '#D97757' },
-    { name: 'Gemini', color: '#8E75B2' },
-    { name: 'HTML', color: '#E34F26' },
-    { name: 'CSS', color: '#1572B6' },
-    { name: 'JavaScript', color: '#F7DF1E' }
+    // Languages
+    { name: 'Python',       color: ['#3776AB', '#FFD43B'] },
+    { name: 'Go',           color: '#00ADD8' },
+    { name: 'Java',         color: ['#007396', '#ED8B00'] },
+    { name: 'JavaScript',   color: '#F7DF1E' },
+    { name: 'C',            color: '#A8B9CC' },
+    { name: 'C++',          color: '#00599C' },
+    // Frameworks
+    { name: 'Spring Boot',  color: '#6DB33F' },
+    { name: 'FastAPI',      color: '#009688' },
+    { name: 'Node.js',      color: '#5FA04E' },
+    { name: 'React',        color: '#61DAFB' },
+    { name: 'Next.js',      color: '#FFFFFF' },
+    { name: 'Express',      color: '#EEEEEE' },
+    // Databases
+    { name: 'PostgreSQL',   color: '#4169E1' },
+    { name: 'MongoDB',      color: ['#47A248', '#001E2B'] },
+    { name: 'Redis',        color: '#FF4438' },
+    { name: 'MySQL',        color: ['#4479A1', '#F29111'] },
+    // Cloud & DevOps
+    { name: 'AWS',          color: ['#FF9900', '#232F3E'] },
+    { name: 'Docker',       color: '#2496ED' },
+    { name: 'Kubernetes',   color: '#326CE5' },
+    { name: 'Terraform',    color: '#844FBA' },
+    { name: 'ArgoCD',       color: '#EF7B4D' },
+    // Tools
+    { name: 'Linux',        color: ['#FCC624', '#FFFFFF', '#000000'] },
+    { name: 'Prometheus',   color: '#E6522C' },
+    { name: 'Grafana',      color: '#F46800' },
+    // AI/ML
+    { name: 'Claude',       color: '#D97757' },
+    { name: 'ChromaDB',     color: '#8B5CF6' },
 ];
 
 export const stats = [
@@ -25,7 +40,7 @@ export const stats = [
         decimals: 2,
         label: 'Graduate GPA',
         suffix: '',
-        color: 'default' // accent to purple gradient
+        color: 'default'
     },
     {
         id: 'oss-fixes',
@@ -37,7 +52,7 @@ export const stats = [
     },
     {
         id: 'hackathon',
-        value: null, // Static text, no counter
+        value: null,
         displayText: '3rd',
         label: 'DeepMind Hackathon',
         color: 'purple'

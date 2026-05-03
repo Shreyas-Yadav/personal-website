@@ -1,3 +1,7 @@
+import generatedGithubProjects from './githubProjects.generated.json';
+import projectOverridesData from './projectOverrides.json';
+import { buildGalleryProjects } from './projectUtils';
+
 export const featuredProjects = [
     {
         id: 'threat-radar',
@@ -6,6 +10,11 @@ export const featuredProjects = [
         title: 'Threat Radar',
         description: 'CLI container security scanner that analyzes Docker images for vulnerabilities, misconfigurations, and supply chain risks. Contributed 90+ high-severity fixes to Google Open Source.',
         tech: ['Python', 'NetworkX', 'Docker', 'CVE Analysis'],
+        award: {
+            icon: 'star',
+            text: "Master's Capstone Project"
+        },
+        repoUrl: 'https://github.com/Threat-Radar/tr.git',
         visual: {
             type: 'terminal',
             lines: [
@@ -28,6 +37,7 @@ export const featuredProjects = [
             icon: 'star',
             text: '3rd Place — Google DeepMind × Cerebral Valley'
         },
+        repoUrl: 'https://github.com/Shreyas-Yadav/Live-Caster.git',
         visual: {
             type: 'parallax',
             icon: '🎙️'
@@ -35,114 +45,63 @@ export const featuredProjects = [
     }
 ];
 
-export const galleryProjects = [
-    {
-        id: 'social-network',
-        icon: 'users',
-        title: 'Social Network Desktop App',
-        description: 'Desktop application simulating a social network with interactive GUI. Implements Observer and Factory Method design patterns for real-time notifications.',
-        tags: ['Java', 'Swing', 'Design Patterns'],
-        category: 'software',
-        link: '#'
-    },
-    {
-        id: 'hotel-reviews',
-        icon: 'building',
-        title: 'Hotel Reviews System',
-        description: 'Full-stack web application for hotel review management with secure authentication, MapBox integration, and RESTful APIs.',
-        tags: ['Java 17', 'MySQL', 'REST API'],
-        category: 'software',
-        link: '#'
-    },
-    {
-        id: 'risc-v-single',
-        icon: 'cpu',
-        title: 'Single-Cycle RISC-V Processor',
-        description: 'Complete single-cycle RISC-V processor implementation with ALU operations, memory access, and comprehensive instruction decoder.',
-        tags: ['RISC-V', 'Digital Logic', 'Assembly'],
-        category: 'architecture',
-        link: '#'
-    },
-    {
-        id: 'risc-v-pipeline',
-        icon: 'activity',
-        title: 'Pipelined RISC-V Processor',
-        description: 'Advanced 5-stage pipelined processor with hazard detection and forwarding units. Optimizes instruction throughput with hazard resolution.',
-        tags: ['RISC-V', 'Pipeline', 'Hazard Unit'],
-        category: 'architecture',
-        link: '#'
-    },
-    {
-        id: 'agent-bench',
-        icon: 'bot',
-        title: 'AgentBench Framework',
-        description: 'Evaluation framework for AI agents using LlamaIndex and Arize Phoenix. Automated assessment of reasoning, tool selection, and execution efficiency.',
-        tags: ['LlamaIndex', 'Python', 'GPT-4o'],
-        category: 'ai',
-        link: '#'
-    },
-    {
-        id: 'code-rag',
-        icon: 'code',
-        title: 'Code RAG Assistant',
-        description: 'Advanced RAG system for codebases using ChromaDB and Voyage AI embeddings. Features AST-based code chunking and semantic retrieval.',
-        tags: ['LlamaIndex', 'Voyage AI', 'Tree-sitter'],
-        category: 'ai',
-        link: '#'
-    },
-    {
-        id: 'golog-analyzer',
-        icon: 'bar-chart',
-        title: 'GoLog Analyzer',
-        description: 'High-performance log analysis tool optimized for processing large-scale web server logs. Built with Go for parallel processing efficiency.',
-        tags: ['Go', 'Concurrency', 'Data Pipelines'],
-        category: 'bigdata',
-        link: '#'
-    },
-    {
-        id: 'weather-app',
-        icon: 'cloud',
-        title: 'Microservices Weather App',
-        description: 'Containerized weather application with Node.js backend and Nginx frontend, deployed on AWS using Docker for scalability.',
-        tags: ['AWS', 'Docker', 'Node.js'],
-        category: 'cloud',
-        link: '#'
-    },
-    {
-        id: 'video-analyzer',
-        icon: 'video',
-        title: 'Serverless Video Analyzer',
-        description: 'Cloud-native architecture for AI video analysis with AWS Lambda, SQS event processing, and Whisper AI transcription.',
-        tags: ['AWS Lambda', 'FastAPI', 'Whisper AI'],
-        category: 'cloud ai',
-        link: '#'
-    },
-    {
-        id: 'compression-detector',
-        icon: 'zap',
-        title: 'Link Compression Detector',
-        description: 'Client-server tool for detecting network link compression by analyzing packet train inter-arrival times with entropy analysis.',
-        tags: ['C', 'Sockets', 'UDP/TCP'],
-        category: 'networking',
-        link: '#'
-    },
-    {
-        id: 'ns3-simulation',
-        icon: 'wifi',
-        title: 'NS-3 QoS Simulation',
-        description: 'Network simulation implementing SPQ and DRR scheduling algorithms with traffic classification and PCAP analysis.',
-        tags: ['C++', 'NS-3', 'Network Sim'],
-        category: 'networking',
-        link: '#'
-    }
-];
-
 export const categories = [
     { id: 'all', label: 'All' },
-    { id: 'software', label: 'Software Dev' },
-    { id: 'architecture', label: 'Computer Arch' },
-    { id: 'networking', label: 'Networking' },
-    { id: 'ai', label: 'Generative AI' },
+    { id: 'distributed', label: 'Distributed' },
     { id: 'cloud', label: 'Cloud' },
-    { id: 'bigdata', label: 'Big Data' }
+    { id: 'ai', label: 'AI' },
+    { id: 'software', label: 'Software' },
 ];
+
+const manualProjects = [
+    {
+        id: 'mapreduce-engine',
+        icon: 'cpu',
+        title: 'Distributed MapReduce Engine',
+        description: 'Built a distributed MapReduce engine in Go on top of a custom DFS, orchestrating map and reduce tasks across a 12-node HPC cluster with plugin-based job binaries and configurable reducer counts. Implemented full shuffle pipeline using FNV-32a hash partitioning and k-way min-heap merge following the Google MapReduce design.',
+        tags: ['Go', 'Protocol Buffers', 'Distributed Systems', 'DFS'],
+        category: 'distributed',
+        domain: 'Distributed Systems',
+        repoUrl: 'https://github.com/usf-cs677-sp26/p2-mapreduce'
+    },
+    {
+        id: 'magnet-arena',
+        icon: 'cloud',
+        title: 'Magnet Arena',
+        description: 'Cloud-native game with production AWS infrastructure (EKS, RDS, VPC) provisioned exclusively via Terraform IaC. Engineered a 4-stage Git-driven CI/CD pipeline with zero-downtime Blue/Green deployments on Kubernetes. Self-hosted Prometheus + Grafana observability stack with OAuth2-secured access and Loki log aggregation.',
+        tags: ['AWS EKS', 'Terraform', 'Kubernetes', 'CI/CD'],
+        category: 'cloud',
+        domain: 'DevOps'
+    },
+    {
+        id: 'clipstudy',
+        icon: 'video',
+        title: 'ClipStudy',
+        description: 'AI-powered video learning platform with a serverless FastAPI backend on AWS Lambda. Designed an async job queue using SQS + EC2 worker polling for GPU-accelerated transcription and LLM-generated flashcards, maintaining sub-second API response times for 10+ concurrent users.',
+        tags: ['FastAPI', 'AWS Lambda', 'SQS', 'React'],
+        category: 'ai cloud',
+        domain: 'AI / Cloud'
+    },
+    {
+        id: 'easyshare',
+        icon: 'users',
+        title: 'EasyShare',
+        description: 'AI-powered bill splitting and file sharing app. Engineered an AI receipt analysis pipeline using OpenAI vision API with Zod schema validation and price normalization. Built real-time collaboration with Socket.IO, Redis-backed rooms, and Clerk auth for concurrent file sharing and bill management.',
+        tags: ['Next.js', 'WebSockets', 'Redis', 'OpenAI'],
+        category: 'ai software',
+        domain: 'Full Stack',
+        repoUrl: 'https://github.com/Shreyas-Yadav/easy-share'
+    },
+];
+
+export const githubProjectSource = {
+    generatedAt: generatedGithubProjects.generatedAt,
+    owner: generatedGithubProjects.owner,
+    topic: generatedGithubProjects.topic
+};
+
+export const galleryProjects = buildGalleryProjects({
+    githubProjects: generatedGithubProjects.projects,
+    projectOverrides: projectOverridesData.projects,
+    manualProjects
+});

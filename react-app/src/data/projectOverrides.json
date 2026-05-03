@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "vama-collections": {
+      "title": "Vama Collections",
+      "description": "Production retail POS system for a real-world shop exposing 9+ REST endpoints for inventory, purchase orders, billing, and tax reporting. Features a tax calculation engine with multi-rate support, domain-driven architecture with 8 aggregate roots, and Flyway migrations.",
+      "category": "software",
+      "icon": "building",
+      "tags": ["Java", "Spring Boot", "PostgreSQL", "REST API"],
+      "domain": "Backend",
+      "sortOrder": 4,
+      "isHidden": false
+    }
+  }
+}

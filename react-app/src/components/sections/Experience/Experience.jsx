@@ -1,60 +1,65 @@
-import { useRef } from 'react';
+import { useState } from 'react';
 import { experience } from '../../../data/experience';
-import { useIntersectionObserver } from '../../../hooks/useIntersectionObserver';
+import { useIsMobile } from '../../../hooks/useMediaQuery';
+import { useCursorHover } from '../../../context/CursorContext';
 import styles from './Experience.module.css';
 
-function ExperienceCard({ role, index }) {
-    const cardRef = useRef(null);
-    const { isIntersecting } = useIntersectionObserver(cardRef, {
-        threshold: 0.2,
-        triggerOnce: true
-    });
+function ExperienceRow({ role, index }) {
+    const [expanded, setExpanded] = useState(false);
+    const isMobile = useIsMobile();
+    const cursorHoverProps = useCursorHover();
+
+    const handleMouseEnter = () => { setExpanded(true); cursorHoverProps.onMouseEnter(); };
+    const handleMouseLeave = () => { setExpanded(false); cursorHoverProps.onMouseLeave(); };
 
     return (
-        <div
-            ref={cardRef}
-            className={styles.card}
-            style={{
-                opacity: isIntersecting ? 1 : 0,
-                transform: isIntersecting ? 'translateX(0)' : 'translateX(20px)',
-                transition: `all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) ${index * 0.1}s`
-            }}
+        <li
+            className={`${styles.row} ${expanded ? styles.expanded : ''}`}
+            onMouseEnter={isMobile ? undefined : handleMouseEnter}
+            onMouseLeave={isMobile ? undefined : handleMouseLeave}
+            onClick={isMobile ? () => setExpanded(prev => !prev) : undefined}
         >
-            <div className={styles.header}>
-                <div className={styles.role}>{role.role}</div>
-            </div>
-
-            <div className={styles.subheader}>
+            <div className={styles.summary}>
+                <span className={styles.number}>
+                    {String(index + 1).padStart(2, '0')}
+                </span>
+                <span className={styles.titleWrap}>
+                    {role.role}
+                    {role.period.includes('Present') && (
+                        <span className={styles.currentBadge}>Current</span>
+                    )}
+                </span>
                 <span className={styles.company}>{role.company}</span>
-                <span className={styles.location}>{role.location}</span>
             </div>
 
-            <ul className={styles.description}>
-                {role.description.map((item, i) => (
-                    <li key={i}>{item}</li>
-                ))}
-            </ul>
-
-            <div className={styles.tags}>
-                {role.tech.map(tech => (
-                    <span key={tech} className={styles.tag}>
-                        {tech}
-                    </span>
-                ))}
+            <div className={styles.expandWrap}>
+                <div className={styles.expandInner}>
+                    <p className={styles.meta}>{role.location} · {role.period}</p>
+                    <ul className={styles.description}>
+                        {role.description.map((item, i) => (
+                            <li key={i}>{item}</li>
+                        ))}
+                    </ul>
+                    <div className={styles.tags}>
+                        {role.tech.map(tech => (
+                            <span key={tech} className={styles.tag}>{tech}</span>
+                        ))}
+                    </div>
+                </div>
             </div>
-        </div>
+        </li>
     );
 }
 
 export function Experience() {
     return (
-        <section className={styles.experienceScene} id="experience">
-            <div className={styles.title}>Experience</div>
-            <div className={styles.timeline}>
+        <section className={styles.scene} id="experience">
+            <div className={styles.sectionTitle}>Experience</div>
+            <ul className={styles.list}>
                 {experience.map((role, index) => (
-                    <ExperienceCard key={role.id} role={role} index={index} />
+                    <ExperienceRow key={role.id} role={role} index={index} />
                 ))}
-            </div>
+            </ul>
         </section>
     );
 }

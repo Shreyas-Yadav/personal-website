@@ -1,1 +1,1 @@
-export { FeaturedProject } from './FeaturedProject';
+export { FeaturedProjects } from './FeaturedProject';
