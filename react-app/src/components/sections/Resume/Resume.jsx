@@ -3,6 +3,8 @@ import { useIntersectionObserver } from '../../../hooks/useIntersectionObserver'
 import { useCursorHover } from '../../../context/useCursor';
 import styles from './Resume.module.css';
 
+const RESUME_URL = import.meta.env.VITE_RESUME_URL;
+
 export function Resume() {
     const cardRef = useRef(null);
     const { isIntersecting } = useIntersectionObserver(cardRef, {
@@ -10,6 +12,8 @@ export function Resume() {
         triggerOnce: true
     });
     const cursorHoverProps = useCursorHover();
+
+    const viewerUrl = `/resume.html?url=${encodeURIComponent(RESUME_URL)}`;
 
     return (
         <section className={styles.resumeScene} id="resume">
@@ -30,7 +34,7 @@ export function Resume() {
                 </div>
                 <div className={styles.cardRight}>
                     <a
-                        href="/resume.html"
+                        href={viewerUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         className={styles.viewBtn}
@@ -43,7 +47,7 @@ export function Resume() {
                         </svg>
                     </a>
                     <a
-                        href="/resume.pdf"
+                        href={RESUME_URL}
                         download="Shreyas-Yadav-Resume.pdf"
                         className={styles.downloadBtn}
                         {...cursorHoverProps}
@@ -57,6 +61,7 @@ export function Resume() {
                     </a>
                 </div>
             </div>
+
         </section>
     );
 }
