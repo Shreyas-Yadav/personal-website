@@ -7,7 +7,7 @@
     justify-content: center;
     position: relative;
     overflow: hidden;
-    padding: 96px 20px 140px;
+    padding: 96px 20px 112px;
 }
 
 .heroBg {
@@ -217,7 +217,7 @@
 @media (max-width: 768px) {
     .hero {
         align-items: flex-start;
-        padding: 190px 18px 130px;
+        padding: 190px 18px 96px;
     }
 
     .heroName {

@@ -1,5 +1,5 @@
 .scene {
-    padding: 80px 0 40px;
+    padding: 96px 0 56px;
     max-width: 1000px;
     margin: 0 auto;
 }
@@ -202,7 +202,7 @@
 
 @media (max-width: 768px) {
     .scene {
-        padding: 60px 0 20px;
+        padding: 64px 0 32px;
     }
 
     .list {

@@ -1,4 +1,4 @@
-/* Tech & Stats Section */
+/* Tech Section */
 .techStatsScene {
     min-height: 100vh;
     position: relative;
@@ -8,7 +8,7 @@
 
 .sticky {
     width: 100%;
-    padding: 80px 0;
+    padding: 96px 0;
 }
 
 /* Skills Marquee */
@@ -99,113 +99,21 @@
     -webkit-text-stroke: 2px var(--skill-color, #0af);
 }
 
-/* Stats */
-.statsSection {
-    padding: 0 40px;
-}
-
-.statsGrid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 40px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.statItem {
-    text-align: center;
-    padding: 0;
-    transition: transform 0.3s ease;
-}
-
-.statItem:hover {
-    transform: translateY(-4px);
-}
-
-.statNumber {
-    font-size: clamp(40px, 6vw, 72px);
-    font-weight: 900;
-    letter-spacing: -0.03em;
-    line-height: 1;
-    margin-bottom: 16px;
-    background: linear-gradient(135deg, var(--accent), var(--purple));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-}
-
-.statNumber.green {
-    background: linear-gradient(135deg, var(--green), #0fa);
-    -webkit-background-clip: text;
-    background-clip: text;
-}
-
-.statNumber.purple {
-    background: linear-gradient(135deg, var(--purple), #f4f);
-    -webkit-background-clip: text;
-    background-clip: text;
-}
-
-.statNumber.orange {
-    background: linear-gradient(135deg, var(--orange), #fa0);
-    -webkit-background-clip: text;
-    background-clip: text;
-}
-
-.statLabel {
-    font-size: 14px;
-    color: var(--dim);
-    font-weight: 500;
-}
-
 /* Responsive */
-@media (max-width: 1024px) {
-    .statsGrid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
 @media (max-width: 768px) {
     .techStatsScene {
         min-height: auto;
     }
 
     .sticky {
-        padding: 40px 0;
+        padding: 64px 0;
     }
 
     .skillsSection {
-        margin-bottom: 40px;
+        margin-bottom: 56px;
     }
 
     .skillItem {
         font-size: clamp(32px, 6vw, 64px);
-    }
-
-    .statsSection {
-        padding: 0 20px;
-    }
-
-    .statsGrid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-    }
-
-    .statItem {
-        padding: 24px;
-    }
-
-    .statNumber {
-        font-size: clamp(32px, 5vw, 48px);
-    }
-
-    .statLabel {
-        font-size: 12px;
-    }
-}
-
-@media (max-width: 480px) {
-    .statsGrid {
-        grid-template-columns: 1fr;
     }
 }
