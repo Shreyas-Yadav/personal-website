@@ -1,6 +1,5 @@
-import { createContext, useContext, useState, useCallback } from 'react';
-
-const CursorContext = createContext(null);
+import { useState, useCallback } from 'react';
+import { CursorContext } from './CursorContextValue';
 
 export function CursorProvider({ children }) {
     const [isHovered, setIsHovered] = useState(false);
@@ -14,22 +13,4 @@ export function CursorProvider({ children }) {
             {children}
         </CursorContext.Provider>
     );
-}
-
-export function useCursor() {
-    const context = useContext(CursorContext);
-    if (!context) {
-        throw new Error('useCursor must be used within a CursorProvider');
-    }
-    return context;
-}
-
-// HOC or hook for adding cursor hover to elements
-export function useCursorHover() {
-    const { setHover } = useCursor();
-
-    return {
-        onMouseEnter: () => setHover(true),
-        onMouseLeave: () => setHover(false)
-    };
 }

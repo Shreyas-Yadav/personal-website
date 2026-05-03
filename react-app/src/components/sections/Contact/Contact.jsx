@@ -1,5 +1,5 @@
 import { LiquidFillText } from '../../common/LiquidFillText';
-import { useCursorHover } from '../../../context/CursorContext';
+import { useCursorHover } from '../../../context/useCursor';
 import styles from './Contact.module.css';
 
 export function Contact() {

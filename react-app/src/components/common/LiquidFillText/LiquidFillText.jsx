@@ -34,7 +34,6 @@ export function LiquidFillText({
     useEffect(() => {
         if (!isVisible) return;
 
-        const chars = text.replace(/\s/g, '').length;
         const timeouts = [];
 
         // Add filled class to each character after its animation completes

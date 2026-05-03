@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { useIntersectionObserver } from '../../../hooks/useIntersectionObserver';
-import { useCursorHover } from '../../../context/CursorContext';
+import { useCursorHover } from '../../../context/useCursor';
 import styles from './Resume.module.css';
 
 export function Resume() {

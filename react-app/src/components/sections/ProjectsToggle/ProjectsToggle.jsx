@@ -1,4 +1,4 @@
-import { useCursorHover } from '../../../context/CursorContext';
+import { useCursorHover } from '../../../context/useCursor';
 import styles from './ProjectsToggle.module.css';
 
 export function ProjectsToggle({ isExpanded, onToggle }) {

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export function useMousePosition(easingFactor = 0.15) {
     const [position, setPosition] = useState({ x: 0, y: 0 });

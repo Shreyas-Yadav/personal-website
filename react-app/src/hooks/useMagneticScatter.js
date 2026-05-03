@@ -1,5 +1,10 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 
+function seededUnit(index, salt) {
+    const value = Math.sin((index + 1) * 12.9898 + salt * 78.233) * 43758.5453;
+    return value - Math.floor(value);
+}
+
 export function useMagneticScatter(galleryRef, cardCount, isExpanded = false) {
     const [progress, setProgress] = useState(0);
     const [isLanded, setIsLanded] = useState(false);
@@ -19,14 +24,14 @@ export function useMagneticScatter(galleryRef, cardCount, isExpanded = false) {
         const scatterMultiplier = isMobile ? 0.4 : 1;
 
         return Array.from({ length: cardCount }, (_, index) => {
-            const angle = (index / cardCount) * Math.PI * 2 + Math.random() * 0.5;
-            const distance = 300 + Math.random() * 300;
+            const angle = (index / cardCount) * Math.PI * 2 + seededUnit(index, 1) * 0.5;
+            const distance = 300 + seededUnit(index, 2) * 300;
 
             return {
                 x: Math.cos(angle) * distance * scatterMultiplier,
                 y: Math.sin(angle) * distance * scatterMultiplier,
-                rotation: (Math.random() - 0.5) * 60,
-                z: isMobile ? 0 : (Math.random() - 0.5) * 400
+                rotation: (seededUnit(index, 3) - 0.5) * 60,
+                z: isMobile ? 0 : (seededUnit(index, 4) - 0.5) * 400
             };
         });
     }, [cardCount]);
@@ -39,17 +44,31 @@ export function useMagneticScatter(galleryRef, cardCount, isExpanded = false) {
     // Scroll handler
     useEffect(() => {
         if (!isExpanded) {
-            setProgress(0);
-            setIsLanded(false);
             progressRef.current = 0;
             targetProgressRef.current = 0;
-            return;
+            rafIdRef.current = requestAnimationFrame(() => {
+                setProgress(0);
+                setIsLanded(false);
+                setIsAnimating(false);
+            });
+            return () => {
+                if (rafIdRef.current) {
+                    cancelAnimationFrame(rafIdRef.current);
+                }
+            };
         }
 
         if (prefersReducedMotion.current) {
-            setProgress(1);
-            setIsLanded(true);
-            return;
+            rafIdRef.current = requestAnimationFrame(() => {
+                setProgress(1);
+                setIsLanded(true);
+                setIsAnimating(false);
+            });
+            return () => {
+                if (rafIdRef.current) {
+                    cancelAnimationFrame(rafIdRef.current);
+                }
+            };
         }
 
         const handleScroll = () => {

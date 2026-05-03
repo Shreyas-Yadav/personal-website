@@ -1,57 +1,51 @@
-import { useRef, useMemo, useState, useEffect } from 'react';
+import { useRef } from 'react';
 import { useIntersectionObserver } from '../../../hooks/useIntersectionObserver';
 import styles from './About.module.css';
 
+const focusAreas = [
+    {
+        label: 'Now',
+        text: 'MS Computer Science candidate at the University of San Francisco and Teaching Assistant for systems foundations.'
+    },
+    {
+        label: 'Focus',
+        text: 'Backend systems, distributed computing, REST APIs, microservices, concurrency, and cloud infrastructure.'
+    },
+    {
+        label: 'Proof',
+        text: 'Built a distributed MapReduce engine, AWS EKS deployments, AI video learning workflows, and production POS systems.'
+    }
+];
+
 export function About() {
     const containerRef = useRef(null);
-    const [highlightedWords, setHighlightedWords] = useState(new Set());
-
     const { isIntersecting } = useIntersectionObserver(containerRef, {
-        threshold: 0.3,
+        threshold: 0.25,
         triggerOnce: true
     });
 
-    const text = "I'm pursuing my Master's in Computer Science at the University of San Francisco, graduating May 2026. I build at the intersection of AI systems and security engineering. From real-time AI commentary that placed at hackathons, to container security tools contributing to Google's open source ecosystem. Currently in San Francisco, focused on production-grade systems that ship.";
-
-    const words = useMemo(() => {
-        return text.split(' ').map((word, index) => ({
-            word,
-            index
-        }));
-    }, []);
-
-    // Highlight all words when section enters viewport
-    useEffect(() => {
-        if (!isIntersecting) return;
-
-        const timeouts = [];
-        words.forEach((_, index) => {
-            const timeout = setTimeout(() => {
-                setHighlightedWords(prev => new Set([...prev, index]));
-            }, index * 50); // Staggered reveal
-            timeouts.push(timeout);
-        });
-
-        return () => timeouts.forEach(clearTimeout);
-    }, [isIntersecting, words]);
-
     return (
         <section className={styles.aboutScene} id="about">
-            <div className={styles.sticky}>
-                <div className={styles.section}>
-                    <div ref={containerRef} className={styles.content}>
-                        <p className={styles.text}>
-                            {words.map(({ word, index }) => (
-                                <span
-                                    key={index}
-                                    className={`${styles.word} ${highlightedWords.has(index) ? styles.highlighted : ''}`}
-                                    style={{ '--word-index': index }}
-                                >
-                                    {word}{' '}
-                                </span>
-                            ))}
-                        </p>
-                    </div>
+            <div
+                ref={containerRef}
+                className={`${styles.section} ${isIntersecting ? styles.visible : ''}`}
+            >
+                <p className={styles.kicker}>About</p>
+                <h2 className={styles.title}>
+                    Backend-focused engineer building scalable systems from infrastructure to application logic.
+                </h2>
+                <p className={styles.lead}>
+                    My resume centers on distributed systems, cloud infrastructure, and production backend
+                    work: custom MapReduce orchestration in Go, Spring Boot and FastAPI services, AWS
+                    deployments, and AI-powered workflows using LLMs, RAG, embeddings, and vector databases.
+                </p>
+                <div className={styles.focusGrid}>
+                    {focusAreas.map(item => (
+                        <div key={item.label} className={styles.focusItem}>
+                            <span className={styles.focusLabel}>{item.label}</span>
+                            <p>{item.text}</p>
+                        </div>
+                    ))}
                 </div>
             </div>
         </section>

@@ -7,15 +7,30 @@ export function useCounterAnimation(target, enabled = false, decimals = 0, durat
     const startTimeRef = useRef(null);
 
     useEffect(() => {
+        const reset = () => {
+            animationRef.current = requestAnimationFrame(() => {
+                setValue(0);
+                setIsComplete(false);
+            });
+        };
+
         // Skip if target is null (e.g., static display text)
         if (target === null || target === undefined) {
-            setValue(0);
-            return;
+            reset();
+            return () => {
+                if (animationRef.current) {
+                    cancelAnimationFrame(animationRef.current);
+                }
+            };
         }
 
         if (!enabled) {
-            setValue(0);
-            return;
+            reset();
+            return () => {
+                if (animationRef.current) {
+                    cancelAnimationFrame(animationRef.current);
+                }
+            };
         }
 
         const animate = (timestamp) => {

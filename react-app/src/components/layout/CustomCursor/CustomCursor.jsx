@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useMousePosition } from '../../../hooks/useMousePosition';
 import { useIsMobile } from '../../../hooks/useMediaQuery';
-import { useCursor } from '../../../context/CursorContext';
+import { useCursor } from '../../../context/useCursor';
 import styles from './CustomCursor.module.css';
 
 export function CustomCursor() {

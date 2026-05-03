@@ -1,11 +1,13 @@
 /* Hero - Cinematic Intro */
 .hero {
-    height: 100vh;
+    min-height: 100vh;
+    min-height: 100svh;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     overflow: hidden;
+    padding: 96px 20px 140px;
 }
 
 .heroBg {
@@ -33,7 +35,7 @@
     position: relative;
     z-index: 1;
     text-align: center;
-    padding: 0 20px;
+    width: min(1120px, 100%);
 }
 
 /* Hero name with liquid fill */
@@ -41,27 +43,18 @@
     font-size: clamp(32px, 6vw, 72px);
     font-weight: 800;
     letter-spacing: -0.03em;
-    margin-bottom: 16px;
-    overflow: hidden;
+    margin-bottom: 12px;
+    overflow: visible;
 }
 
 .nameChar {
     display: inline-block;
     position: relative;
-    color: transparent;
-    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);
+    color: var(--text);
+    -webkit-text-stroke: 0;
     cursor: default;
-    background: linear-gradient(to top, #fff 0%, #fff 50%, transparent 50%, transparent 100%);
-    background-size: 100% 200%;
-    background-position: 0% 0%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    opacity: 0;
-    transform: translateY(30px);
-    animation: nameCharReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards,
-        nameLiquidFill 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-    animation-delay: calc(var(--name-char-index) * 0.03s),
-        calc(0.8s + var(--name-char-index) * 0.05s);
+    opacity: 1;
+    text-shadow: 0 0 24px rgba(255, 255, 255, 0.12);
 }
 
 @keyframes nameCharReveal {
@@ -94,31 +87,31 @@
 }
 
 /* Hero title */
+.heroSubtitle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(13px, 1.5vw, 16px);
+    color: var(--accent);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+}
+
 .heroTitle {
     font-size: clamp(48px, 15vw, 180px);
     font-weight: 900;
     letter-spacing: -0.05em;
-    line-height: 0.9;
-    overflow: hidden;
+    line-height: 0.92;
+    overflow: visible;
 }
 
 .line {
     display: block;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .word {
     display: inline-block;
-    transform: translateY(100%);
-    animation: slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-.line:nth-child(1) .word {
-    animation-delay: 0.2s;
-}
-
-.line:nth-child(2) .word {
-    animation-delay: 0.35s;
+    transform: translateY(0);
 }
 
 @keyframes slideUp {
@@ -131,18 +124,16 @@
     display: inline-block;
     position: relative;
     color: transparent;
-    -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.5);
+    -webkit-text-stroke: 0;
     cursor: default;
-    background: linear-gradient(to top, #fff 0%, #fff 50%, transparent 50%, transparent 100%);
-    background-size: 100% 200%;
-    background-position: 0% 0%;
+    background: linear-gradient(135deg, #fff 0%, #b8c7d9 58%, rgba(255, 255, 255, 0.72) 100%);
     -webkit-background-clip: text;
     background-clip: text;
+    text-shadow: 0 0 40px rgba(255, 255, 255, 0.16);
 }
 
 .heroTitle.visible .heroChar {
-    animation: liquidFill 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-    animation-delay: calc(0.5s + var(--char-index) * 0.08s);
+    animation: none;
 }
 
 /* Wave oscillation effect during fill */
@@ -157,8 +148,7 @@
 }
 
 .heroTitle.visible .heroChar::before {
-    animation: waveOscillate 0.6s ease-in-out infinite;
-    animation-delay: calc(0.5s + var(--char-index) * 0.08s);
+    animation: none;
 }
 
 /* After fill complete - glow effect on hover */
@@ -172,14 +162,86 @@
     transition: all 0.3s ease;
 }
 
+.heroMeta {
+    width: min(620px, 100%);
+    margin: 28px auto 0;
+    color: rgba(255, 255, 255, 0.68);
+    font-size: clamp(15px, 1.5vw, 18px);
+    line-height: 1.7;
+    overflow-wrap: break-word;
+}
+
+.scrollCue {
+    position: absolute;
+    left: 50%;
+    bottom: 112px;
+    z-index: 2;
+    width: 34px;
+    height: 54px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 999px;
+    transform: translateX(-50%);
+    opacity: 0.75;
+}
+
+.scrollCue span {
+    position: absolute;
+    top: 11px;
+    left: 50%;
+    width: 4px;
+    height: 9px;
+    background: rgba(255, 255, 255, 0.72);
+    border-radius: 999px;
+    transform: translateX(-50%);
+    animation: scrollDot 1.6s ease-in-out infinite;
+}
+
+@keyframes scrollDot {
+    0%, 100% {
+        transform: translate(-50%, 0);
+        opacity: 0.35;
+    }
+
+    45% {
+        transform: translate(-50%, 16px);
+        opacity: 1;
+    }
+}
+
 /* Responsive */
 @media (max-width: 768px) {
+    .hero {
+        align-items: flex-start;
+        padding: 190px 18px 130px;
+    }
+
     .heroName {
-        font-size: clamp(24px, 5vw, 40px);
+        font-size: clamp(21px, 6vw, 24px);
     }
 
     .heroTitle {
-        font-size: clamp(36px, 12vw, 120px);
+        font-size: clamp(40px, 13vw, 54px);
+        line-height: 0.98;
+    }
+
+    .heroSubtitle {
+        width: min(260px, 100%);
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 10px;
+        line-height: 1.7;
+        letter-spacing: 0.05em;
+        margin-bottom: 18px;
+    }
+
+    .heroMeta {
+        margin-top: 22px;
+        width: min(280px, 100%);
+        font-size: 14px;
+    }
+
+    .scrollCue {
+        bottom: 116px;
     }
 }
 

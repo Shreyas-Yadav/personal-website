@@ -71,7 +71,7 @@ export function TechStats() {
     const row3 = skills.slice(18);
 
     return (
-        <section className={styles.techStatsScene} id="techStatsScene">
+        <section className={styles.techStatsScene} id="tech">
             <div className={styles.sticky}>
                 {/* Skills Marquee */}
                 <div className={styles.skillsSection}>

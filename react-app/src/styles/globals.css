@@ -19,6 +19,8 @@
 
 html {
     scroll-behavior: smooth;
+    scrollbar-color: rgba(255, 255, 255, 0.28) transparent;
+    scrollbar-width: thin;
 }
 
 body {
@@ -29,9 +31,28 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-/* Hide scrollbar but allow scroll */
+/* Keep scroll position visible without dominating the UI */
 body::-webkit-scrollbar {
-    width: 0;
+    width: 8px;
+}
+
+body::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.22);
+    border-radius: 999px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.36);
+}
+
+a:focus-visible,
+button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
 }
 
 /* Noise overlay */
@@ -78,4 +99,18 @@ body::-webkit-scrollbar {
 
 [class*="toggle"]::after {
     animation-name: toggleLightRight !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+    }
 }

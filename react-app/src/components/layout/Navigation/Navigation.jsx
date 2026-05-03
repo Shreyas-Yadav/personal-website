@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useScrollProgress } from '../../../hooks/useScrollProgress';
 import { useIsMobile } from '../../../hooks/useMediaQuery';
-import { useCursorHover } from '../../../context/CursorContext';
+import { useCursorHover } from '../../../context/useCursor';
 import styles from './Navigation.module.css';
 
 export function Navigation() {
@@ -42,9 +42,11 @@ export function Navigation() {
     };
 
     const navLinks = [
-        { href: '#work', label: 'Work' },
-        { href: '#about', label: 'About' },
+        { href: '#experience', label: 'Experience' },
+        { href: '#work', label: 'Projects' },
         { href: '#resume', label: 'Resume' },
+        { href: '#tech', label: 'Tech' },
+        { href: '#about', label: 'About' },
         { href: '#contact', label: 'Contact' }
     ];
 

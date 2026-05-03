@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { experience } from '../../../data/experience';
 import { useIsMobile } from '../../../hooks/useMediaQuery';
-import { useCursorHover } from '../../../context/CursorContext';
+import { useCursorHover } from '../../../context/useCursor';
 import styles from './Experience.module.css';
 
 function ExperienceRow({ role, index }) {
@@ -11,15 +11,28 @@ function ExperienceRow({ role, index }) {
 
     const handleMouseEnter = () => { setExpanded(true); cursorHoverProps.onMouseEnter(); };
     const handleMouseLeave = () => { setExpanded(false); cursorHoverProps.onMouseLeave(); };
+    const toggleExpanded = () => setExpanded(prev => !prev);
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            toggleExpanded();
+        }
+    };
 
     return (
         <li
             className={`${styles.row} ${expanded ? styles.expanded : ''}`}
             onMouseEnter={isMobile ? undefined : handleMouseEnter}
             onMouseLeave={isMobile ? undefined : handleMouseLeave}
-            onClick={isMobile ? () => setExpanded(prev => !prev) : undefined}
         >
-            <div className={styles.summary}>
+            <div
+                className={styles.summary}
+                role="button"
+                tabIndex={0}
+                aria-expanded={expanded}
+                onClick={toggleExpanded}
+                onKeyDown={handleKeyDown}
+            >
                 <span className={styles.number}>
                     {String(index + 1).padStart(2, '0')}
                 </span>
@@ -30,6 +43,7 @@ function ExperienceRow({ role, index }) {
                     )}
                 </span>
                 <span className={styles.company}>{role.company}</span>
+                <span className={styles.chevron} aria-hidden="true" />
             </div>
 
             <div className={styles.expandWrap}>
